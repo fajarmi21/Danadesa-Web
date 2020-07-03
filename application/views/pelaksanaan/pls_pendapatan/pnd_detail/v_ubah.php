@@ -19,19 +19,20 @@
 			?>
 
 			<?php echo form_open('admin/c_pelaksanaan/simpan_detail'); ?>
+				<input type="hidden" name="id_detail" id="id_detail" value="<?php echo $id_detail; ?>" required />
 				<input type="hidden" name="id_rka_belanja" id="id_rka_belanja" value="<?php echo $id; ?>" required />
 				<input type="hidden" name="tgl_detail" id="tgl_detail" value="<?php echo date('Y-m-d'); ?>" required />
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="barang">Barang</label>
 					<div class="col-md-8">
-						<textarea name="barang" id="barang" rows="3" cols="80" class="form-control" placeholder="Barang"></textarea>
+						<textarea name="barang" id="barang" rows="5" cols="80" placeholder="Barang" required><?php echo $detail->keterangan_detail; ?></textarea>
 						<span>&nbsp;</span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="anggaran">Harga</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control input-md" name="anggaran" id="anggaran" size="100" placeholder="Anggaran" required />
+						<input type="text" class="form-control input-md" name="anggaran" size="100" placeholder="Anggaran" value="<?php echo $detail->harga_detail;?>" required />
 						<span>&nbsp;</span>
 					</div>
 				</div>
@@ -41,7 +42,7 @@
 						<div class="col-md-8">
 							<div id="lihat">
 								<div class="cropit-image-preview"></div>
-								<input type="range" class="cropit-image-zoom-input" style="width: 200px">
+							    <input type="range" class="cropit-image-zoom-input" style="width: 200px; background-image: url(<?php echo $detail->nota_detail; ?>);">
 								<br>
 							</div>
 							<input type="file" id="image" class="cropit-image-input custom" accept="image/*">
@@ -110,7 +111,7 @@
 	$(function() {
 		$('.image-editor').cropit({
 			imageState: {
-				src: '<?= base_url() . $hasil->image ?>'
+				src: '<?= base_url() . $detail->nota_detail ?>'
 			}
 		});
 
