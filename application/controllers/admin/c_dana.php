@@ -1,0 +1,33 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class C_dana extends CI_Controller {
+
+    function  __construct()
+    {
+		parent::__construct();
+
+        //Load flexigrid helper and library
+        $this->load->helper('flexigrid_helper');
+        $this->load->library('flexigrid');
+        $this->load->helper('form');
+		    $this->load->library('encrypt');
+    }
+
+    function index() {
+		$session['hasil'] = $this->session->userdata('logged_in');
+		$role = $session['hasil']->role;
+		if($this->session->userdata('logged_in') AND $role == 'Administrator') $this->lists();
+		else redirect('c_login', 'refresh');
+    }
+
+    function lists() {
+        $data['page_title'] = 'DANA DESA';
+        // $this->db->order_by('kode_bidang', 'ASC');
+        $data['v_danadesa'] = $this->db->query("SELECT tahun, tahun_pendapatan, pelaksana_kegiatan, jenis, anggaran, jumlah FROM tbl_danadesa 
+        LEFT JOIN tbl_rka_pendapatan USING (id_rka_pendapatan)
+        LEFT JOIN tbl_rka_belanja USING (id_rka_belanja)")->result_array();
+		$data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
+        $data['content'] = $this->load->view('dana/v_list', $data, TRUE);
+        $this->load->view('utama', $data);
+    }
+}
