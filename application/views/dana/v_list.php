@@ -26,8 +26,13 @@ echo $this->session->flashdata('msg');
       <tbody>
         <?php
         $no = 1;
+        $thn = 1;
         foreach ($v_danadesa as $baris) { ?>
           <tr>
+            <?php if ($baris["tahun"] != $thn) {
+              $thn = $baris["tahun"]; ?>
+            <?php } else { ?>
+            <?php } ?>
             <td><?php echo $no++; ?>.</td>
             <?php if ($baris["tahun"] != null) { ?>
               <td><?php echo $baris["pelaksana_kegiatan"]; ?></td>

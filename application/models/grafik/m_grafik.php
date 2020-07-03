@@ -43,8 +43,9 @@ class M_Grafik extends CI_Model {
     {
         foreach ($this->getTahun() as $key) {
             $query[] = $this->db->query("SELECT id_dusun,anggaran,tahun from tbl_rka_belanja WHERE id_dusun = '4' and tahun =".$key['tahun'])->row_array();
+            $x = array('anggaran' => '0', 'tahun' => $key['tahun']);
+            if (end($query) == null) $query[end((array_keys($query)))] = $x;
         }
-        // var_dump($query);
         return $query;
     }
 
@@ -52,6 +53,8 @@ class M_Grafik extends CI_Model {
     {
         foreach ($this->getTahun() as $key) {
             $query[] = $this->db->query("SELECT id_dusun,anggaran,tahun from tbl_rka_belanja WHERE id_dusun = '5' and tahun =".$key['tahun'])->row_array();
+            $x = array('anggaran' => '0', 'tahun' => $key['tahun']);
+            if (end($query) == null) $query[end((array_keys($query)))] = $x;
         }
         return $query;
     }
@@ -60,6 +63,8 @@ class M_Grafik extends CI_Model {
     {
         foreach ($this->getTahun() as $key) {
             $query[] = $this->db->query("SELECT id_dusun,anggaran,tahun from tbl_rka_belanja WHERE id_dusun = '6' and tahun =".$key['tahun'])->row_array();
+            $x = array('anggaran' => '0', 'tahun' => $key['tahun']);
+            if (end($query) == null) $query[end((array_keys($query)))] = $x;
         }
         return $query; 
     }
@@ -68,6 +73,8 @@ class M_Grafik extends CI_Model {
     {
         foreach ($this->getTahun() as $key) {
             $query[] = $this->db->query("SELECT id_dusun,anggaran,tahun from tbl_rka_belanja WHERE id_dusun = '7' and tahun =".$key['tahun'])->row_array();
+            $x = array('anggaran' => '0', 'tahun' => $key['tahun']);
+            if (end($query) == null) $query[end((array_keys($query)))] = $x;
         }
         return $query;
     }
@@ -78,4 +85,3 @@ class M_Grafik extends CI_Model {
         return $query->result_array();
     } 
 }
-?>
