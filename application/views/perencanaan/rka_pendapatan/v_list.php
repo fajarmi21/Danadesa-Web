@@ -45,7 +45,7 @@ echo $this->session->flashdata('msg');
         <tr>
           <th><?php echo $no++; ?>.</th>
           <td><?php echo $baris->jenis; ?></td>
-          <td><?php echo $baris->tahun_pendapatan; ?></td>
+          <td><?php echo $baris->tahun; ?></td>
           <td><?php echo $baris->nama_kegiatan; ?></td>
           <td><?php echo $baris->kelompok; ?></td>
           <td><?php echo $baris->lokasi_kegiatan; ?></td>

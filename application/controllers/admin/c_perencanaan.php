@@ -275,7 +275,7 @@ class C_perencanaan extends CI_Controller {
                 if (isset($_POST['simpan'])) {
                     $data = array(
                       'kelompok'           => $this->input->post('kelompok'),
-                      'tahun_pendapatan'   => $this->input->post('tahun_pendapatan'),
+                      'tahun'   => $this->input->post('tahun_pendapatan'),
                       'id_kegiatan'        => $this->input->post('id_kegiatan'),
                       'jenis'              => $this->input->post('jenis'),
                       'lokasi_kegiatan'    => $this->input->post('lokasi_kegiatan'),
@@ -326,7 +326,7 @@ class C_perencanaan extends CI_Controller {
               $id = $this->input->post('id');
                 $data = array(
                   'kelompok'           => $this->input->post('kelompok'),
-                  'tahun_pendapatan'   => $this->input->post('tahun_pendapatan'),
+                  'tahun'   => $this->input->post('tahun_pendapatan'),
                   'id_kegiatan'           => $this->input->post('id_kegiatan'),
                   'jenis'              => $this->input->post('jenis'),
                   'lokasi_kegiatan'    => $this->input->post('lokasi_kegiatan'),

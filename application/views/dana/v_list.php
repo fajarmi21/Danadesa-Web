@@ -2,9 +2,6 @@
 <script type="text/javascript" src="<?= $this->config->item('base_url'); ?>assetku/DataTables/dataTables.min.js"></script>
 <h3><?= $page_title ?></h3>
 <hr>
-
-<a href="c_bidang/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create</a>
-<hr>
 <?php
 echo $this->session->flashdata('msg');
 ?>
@@ -17,8 +14,7 @@ echo $this->session->flashdata('msg');
       <thead>
         <tr>
           <th width="12%;">No.</th>
-          <th>Keterangan</th>
-          <th>Tgl</th>
+          <th>Tahun</th>
           <th>Dana Masuk</th>
           <th>Dana Keluar</th>
         </tr>
@@ -26,28 +22,19 @@ echo $this->session->flashdata('msg');
       <tbody>
         <?php
         $no = 1;
-        $thn = 1;
         foreach ($v_danadesa as $baris) { ?>
-          <tr>
-            <?php if ($baris["tahun"] != $thn) {
-              $thn = $baris["tahun"]; ?>
-            <?php } else { ?>
-            <?php } ?>
-            <td><?php echo $no++; ?>.</td>
-            <?php if ($baris["tahun"] != null) { ?>
-              <td><?php echo $baris["pelaksana_kegiatan"]; ?></td>
-              <td><?php echo $baris["tahun"]; ?></td>
-              <td><?php echo $baris["anggaran"]; ?></td>
-              <td><?php echo null; ?></td>
-            <?php } else { ?>
-              <td><?php echo $baris["jenis"]; ?></td>
-              <td><?php echo $baris["tahun_pendapatan"]; ?></td>
-              <td><?php echo null; ?></td>
-              <td><?php echo $baris["jumlah"]; ?></td>
-            <?php } ?>
-          </tr>
-        <?php
-        } ?>
+              <tr>
+                <td><?= $no++; ?>.</td>
+                <td><?= $baris["tahun"]; ?></td>
+                <?php if ($baris["dm"]) { ?>
+                  <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($baris["dm"],0,",","."); ?>,-</span></td>
+                  <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format(null,",","."); ?>,-</span></td>
+                <?php } else { ?>
+                  <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format(null,",","."); ?>,-</span></td>
+                  <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($baris["dk"],0,",","."); ?>,-</span></td>
+                <?php } ?>
+              </tr>
+        <?php } ?>
       </tbody>
     </table>
   </div>

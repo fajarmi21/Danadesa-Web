@@ -183,7 +183,7 @@ Chart.defaults.global.defaultFontColor = 'black';
 Chart.defaults.global.defaultFontSize = 12;
 
 var data = {
-  labels: [<?php foreach ($angdesa as $key) { echo $key['tahun_pendapatan'].','; } ?>],
+  labels: [<?php foreach ($angdesa as $key) { echo $key['tahun'].','; } ?>],
   datasets: [{
       label: "Desa Dukuh",
       fill: true,

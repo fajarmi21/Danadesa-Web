@@ -23,9 +23,8 @@ class C_dana extends CI_Controller {
     function lists() {
         $data['page_title'] = 'DANA DESA';
         // $this->db->order_by('kode_bidang', 'ASC');
-        $data['v_danadesa'] = $this->db->query("SELECT tahun, tahun_pendapatan, pelaksana_kegiatan, jenis, anggaran, jumlah FROM tbl_danadesa 
-        LEFT JOIN tbl_rka_pendapatan USING (id_rka_pendapatan)
-        LEFT JOIN tbl_rka_belanja USING (id_rka_belanja)")->result_array();
+        $data['v_danadesa'] = $this->db->query("SELECT tahun, null as dk, SUM(jumlah) as dm FROM tbl_rka_pendapatan GROUP BY tahun UNION
+        SELECT tahun, SUM(anggaran) as dk, null as dm FROM tbl_rka_belanja GROUP BY tahun ORDER BY tahun")->result_array();
 		$data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
         $data['content'] = $this->load->view('dana/v_list', $data, TRUE);
         $this->load->view('utama', $data);

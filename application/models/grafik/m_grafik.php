@@ -29,7 +29,7 @@ class M_Grafik extends CI_Model {
 
     public function getAdesa()
     {
-        $query = $this->db->query("SELECT SUM(jumlah) as jml, tahun_pendapatan FROM tbl_rka_pendapatan GROUP BY tahun_pendapatan");
+        $query = $this->db->query("SELECT SUM(jumlah) as jml, tahun FROM tbl_rka_pendapatan GROUP BY tahun");
         return $query->result_array();  
     } 
 
