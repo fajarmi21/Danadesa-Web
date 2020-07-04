@@ -5,12 +5,8 @@
 <?php
 echo $this->session->flashdata('msg');
 ?>
-<div class="col-md-12">
-  <div class="col-md-6">
-    <h4 style="margin:0px; margin-bottom: 10px;">
-      <center>Dana Desa</center>
-    </h4>
-    <table id="table_dana" class="table table-bordered table-striped display responsive" width="100%">
+<div style="width: 80%; margin: 0px auto;">
+<table id="table_dana" class="table table-bordered table-striped display responsive" width="100%">
       <thead>
         <tr>
           <th width="12%;">No.</th>
@@ -37,25 +33,6 @@ echo $this->session->flashdata('msg');
         <?php } ?>
       </tbody>
     </table>
-  </div>
-  <div class="col-md-6">
-    <h4 style="margin:0px; margin-bottom: 10px;">
-      <center>Dana Cadangan</center>
-    </h4>
-    <table id="table_cad" class="table table-bordered table-striped display responsive" width="100%">
-      <thead>
-        <tr>
-          <th width="12%;">No.</th>
-          <th>Keterangan</th>
-          <th>Tgl</th>
-          <th>Dana Masuk</th>
-          <th>Dana Keluar</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </div>
 </div>
 
 <script>
