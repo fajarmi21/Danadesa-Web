@@ -85,13 +85,13 @@
 				    <label class="col-md-0 control-label" for="simpan"></label>
 				    <button type="button" class="btn btn-danger" name="batal" id="batal" onclick="location.href='<?= base_url() ?>admin/c_perencanaan/apb_desa'"/>Batal</button>
 						<button type="submit" class="btn btn-success" name="simpan" id="simpan" style="float:right;"/>Simpan</button>
-				    </div>
 				</div>
 			</div>
 		</div>
+	</div>
 
 		<?php echo form_close(); ?>
-	</div>
+</div>
 
 	<script>
 	function nav_active(){

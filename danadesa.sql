@@ -46,23 +46,45 @@ DROP TABLE IF EXISTS `tbl_apb_desa`;
 
 CREATE TABLE `tbl_apb_desa` (
   `id_apb_desa` int(10) NOT NULL AUTO_INCREMENT,
+  `id_kegiatan` varchar(50) DEFAULT NULL,
+  `id_bank` varchar(50) DEFAULT NULL,
   `nomor` varchar(30) DEFAULT NULL,
+  `nama_apb` varchar(100) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL,
   `kode` varchar(50) DEFAULT NULL,
-  `uraian` text,
+  `uraian` varchar(100) DEFAULT NULL,
   `jumlah` varchar(100) DEFAULT NULL,
   `satuan` varchar(30) DEFAULT NULL,
   `harga` varchar(100) DEFAULT NULL,
   `anggaran` varchar(100) DEFAULT NULL,
   `tgl_apb_desa` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id_apb_desa`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tbl_apb_desa` */
 
-insert  into `tbl_apb_desa`(`id_apb_desa`,`nomor`,`tahun`,`kode`,`uraian`,`jumlah`,`satuan`,`harga`,`anggaran`,`tgl_apb_desa`) values 
-(1,'001',2019,'BANK BCA','08738377138','10','sepuluh','1000000','2000000','17-01-2018'),
-(3,'001',2018,'BANK BCA','23456789','10','sepuluh','5000000','7000000','14-04-2020');
+insert  into `tbl_apb_desa`(`id_apb_desa`,`id_kegiatan`,`id_bank`,`nomor`,`nama_apb`,`tahun`,`kode`,`uraian`,`jumlah`,`satuan`,`harga`,`anggaran`,`tgl_apb_desa`) values 
+(6,'1','3',NULL,'sd',2014,'0','121312434','21212','asas','990011','21212','14-07-2020');
+
+/*Table structure for table `tbl_bank` */
+
+DROP TABLE IF EXISTS `tbl_bank`;
+
+CREATE TABLE `tbl_bank` (
+  `id_bank` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_bank` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_bank`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_bank` */
+
+insert  into `tbl_bank`(`id_bank`,`nama_bank`) values 
+(1,'Bank BCA'),
+(2,'Bank BRI'),
+(3,'Bank BNI'),
+(4,'Bank MANDIRI'),
+(5,'Bank JATIM'),
+(6,'Bank LAIN');
 
 /*Table structure for table `tbl_belanja` */
 
@@ -118,9 +140,13 @@ CREATE TABLE `tbl_danadesa` (
   `id_rka_pendapatan` int(50) DEFAULT NULL,
   `dana_pemerintah` varchar(75) DEFAULT NULL,
   PRIMARY KEY (`id_danadesa`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tbl_danadesa` */
+
+insert  into `tbl_danadesa`(`id_danadesa`,`tahun_danadesa`,`id_rka_belanja`,`id_rka_pendapatan`,`dana_pemerintah`) values 
+(1,'2020',10,NULL,NULL),
+(2,'2019',NULL,4,NULL);
 
 /*Table structure for table `tbl_detail` */
 
@@ -134,14 +160,18 @@ CREATE TABLE `tbl_detail` (
   `harga_detail` varchar(75) DEFAULT NULL,
   `nota_detail` varchar(75) DEFAULT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tbl_detail` */
 
 insert  into `tbl_detail`(`id_detail`,`id_rka_belanja`,`tgl_detail`,`keterangan_detail`,`harga_detail`,`nota_detail`) values 
-(12,7,'2020-07-02','adasdsa','12000000','uploads/nota/202007027.jpg'),
+(13,0,'0','0','','uploads/nota/20200702.jpg'),
 (11,12,'2020-07-02','acdad','2000000','uploads/nota/2020070212.jpg'),
-(10,13,'2020-07-02','Cadad','1000000','uploads/nota/2020070213.jpg');
+(10,13,'2020-07-02','Cadad','100000','uploads/nota/2020070213.jpg'),
+(14,0,'0','0','','uploads/nota/20200702.jpg'),
+(15,0,'0','0','','uploads/nota/20200703.jpg'),
+(16,0,'0','0','','uploads/nota/20200703.jpg'),
+(17,0,'0','0','','uploads/nota/20200703.jpg');
 
 /*Table structure for table `tbl_detail_pendapatan` */
 
@@ -151,11 +181,16 @@ CREATE TABLE `tbl_detail_pendapatan` (
   `id_detail_p` int(100) NOT NULL AUTO_INCREMENT,
   `id_rka_pendapatan` int(50) DEFAULT NULL,
   `tgl_detail_p` varchar(50) DEFAULT NULL,
+  `ket_detail_p` varchar(100) DEFAULT NULL,
   `harga_detail_p` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id_detail_p`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tbl_detail_pendapatan` */
+
+insert  into `tbl_detail_pendapatan`(`id_detail_p`,`id_rka_pendapatan`,`tgl_detail_p`,`ket_detail_p`,`harga_detail_p`) values 
+(1,5,'03-05-2020','Setoran','200000'),
+(2,10,'03-07-2020','dsd','23232');
 
 /*Table structure for table `tbl_kegiatan` */
 
@@ -215,29 +250,6 @@ CREATE TABLE `tbl_pelaksanaan` (
 insert  into `tbl_pelaksanaan`(`id_pelaksanaan`,`id_rka_belanja`,`jml_tim`) values 
 (17,10,'30'),
 (16,6,'90');
-
-/*Table structure for table `tbl_pendapatan` */
-
-DROP TABLE IF EXISTS `tbl_pendapatan`;
-
-CREATE TABLE `tbl_pendapatan` (
-  `id_pendapatan` int(10) NOT NULL AUTO_INCREMENT,
-  `id_desa` int(10) DEFAULT NULL,
-  `nama_rincian` text,
-  `anggaran` text,
-  `anggaranpak` text,
-  `jumlah` text,
-  `nama_rek` text,
-  `tgl_pendapatan` date DEFAULT NULL,
-  PRIMARY KEY (`id_pendapatan`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-
-/*Data for the table `tbl_pendapatan` */
-
-insert  into `tbl_pendapatan`(`id_pendapatan`,`id_desa`,`nama_rincian`,`anggaran`,`anggaranpak`,`jumlah`,`nama_rek`,`tgl_pendapatan`) values 
-(6,1,'aaaaa','10000','200000','210000','sdlfhld','2017-09-21'),
-(5,1,'asad','1000','1000','2000','sdfdjslnf','2017-09-20'),
-(7,1,'asdfgfg','100000','100000','200000','dfjlgn','2017-09-19');
 
 /*Table structure for table `tbl_pengguna` */
 
@@ -344,7 +356,7 @@ DROP TABLE IF EXISTS `tbl_rka_pendapatan`;
 
 CREATE TABLE `tbl_rka_pendapatan` (
   `id_rka_pendapatan` int(10) NOT NULL AUTO_INCREMENT,
-  `tahun_pendapatan` varchar(100) DEFAULT NULL,
+  `tahun` varchar(100) DEFAULT NULL,
   `id_kegiatan` varchar(50) DEFAULT NULL,
   `kelompok` varchar(100) DEFAULT NULL,
   `jenis` varchar(100) DEFAULT NULL,
@@ -357,7 +369,7 @@ CREATE TABLE `tbl_rka_pendapatan` (
 
 /*Data for the table `tbl_rka_pendapatan` */
 
-insert  into `tbl_rka_pendapatan`(`id_rka_pendapatan`,`tahun_pendapatan`,`id_kegiatan`,`kelompok`,`jenis`,`lokasi_kegiatan`,`jumlah`,`tgl_pembahasan`,`tgl_rka_pendapatan`) values 
+insert  into `tbl_rka_pendapatan`(`id_rka_pendapatan`,`tahun`,`id_kegiatan`,`kelompok`,`jenis`,`lokasi_kegiatan`,`jumlah`,`tgl_pembahasan`,`tgl_rka_pendapatan`) values 
 (4,'2017','7','Perangkat Desa','Iuran bhhh','Rumah RW','800000','03-05-2020','13-06-2020'),
 (5,'2019','6','Dusun Ngadirejo RT 008','Pertunjukan Wayang Kulit','Lapangan Desa','1200000','15-04-2020','14-04-2020'),
 (0,'2019','7','RW.010 RT.039','Iuran kekeye','Rumah Pak Carik','1100000','29-06-2020',NULL),
