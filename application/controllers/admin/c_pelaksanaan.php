@@ -655,6 +655,186 @@ class C_pelaksanaan extends CI_Controller {
     }
   }
 
+
+          function pls_apb($aksi='',$id='')    {
+          $session['hasil'] = $this->session->userdata('logged_in');
+          $role = $session['hasil']->role;
+          if($this->session->userdata('logged_in') AND $role == 'Administrator')
+          {
+            if ($aksi == 'add') {
+              $this->add_apb_desa();
+            }elseif ($aksi == 'print') {
+              $this->print_apb_desa();
+            }else {
+              $this->lists_apb_desa();
+            }
+          }else
+            redirect('c_login', 'refresh');
+
+          }
+
+          function lists_apb_desa() {
+              $data['page_title'] = 'DANA CADANGAN';
+              $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
+              $this->db->join('tbl_bank', 'tbl_bank.id_bank=tbl_apb_desa.id_bank', 'left');
+              $this->db->order_by('id_apb_desa', 'DESC');
+              $data['v_data'] = $this->db->get('tbl_apb_desa');
+              $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
+              $data['content'] = $this->load->view('pelaksanaan/pls_apb/v_list', $data, TRUE);
+              $this->load->view('utama', $data);
+          }
+
+          function add_apb_desa(){
+          $session['hasil'] = $this->session->userdata('logged_in');
+          $role = $session['hasil']->role;
+          if($this->session->userdata('logged_in') AND $role == 'Administrator')
+          {
+            $data['page_title'] = 'TAMBAH DANA CADANGAN';
+            $this->db->order_by('nama_kegiatan', 'ASC');
+            $data['v_kegiatan'] = $this->db->get('tbl_kegiatan');
+            $this->db->order_by('nama_bank', 'ASC');
+            $data['v_bank'] = $this->db->get('tbl_bank');
+            $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
+            $data['content'] = $this->load->view('pelaksanaan/pls_apb/v_tambah', $data, TRUE);
+            $this->load->view('utama', $data);
+          }else
+            redirect('c_login', 'refresh');
+
+          }
+
+          function simpan_apb_desa() {
+            $session['hasil'] = $this->session->userdata('logged_in');
+            $role = $session['hasil']->role;
+            if($this->session->userdata('logged_in') AND $role == 'Administrator')
+            {
+                    if (isset($_POST['simpan'])) {
+                      $tahun = $this->input->post('tahun');
+                      if ($this->db->get_where("tbl_apb_desa", array('tahun' => "$tahun"))->num_rows() != 0) {
+                        $this->session->set_flashdata('msg',
+                          '
+                          <div class="alert alert-warning alert-dismissible" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                             </button>
+                             <strong>Gagal!</strong> Maaf, dan Tahun <b>"'.$tahun.'"</b> sudah ada!.
+                          </div>'
+                        );
+                        redirect('admin/c_pelaksanaan/apb_desa/add');
+                      }
+                        $data = array(
+                          'tahun'              => $tahun,
+                          'nama_apb'           => $this->input->post('nama_apb'),
+                          'id_kegiatan'        => $this->input->post('id_kegiatan'),
+                          'id_bank'            => $this->input->post('id_bank'),
+                          'uraian'             => $this->input->post('uraian'),
+                          'jumlah'             => $this->input->post('jumlah'),
+                          'anggaran'              => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+                          'tgl_apb_desa'       => date('d-m-Y')
+                        );
+                        $this->db->insert("tbl_apb_desa", $data);
+                        $this->session->set_flashdata('msg',
+                          '
+                          <div class="alert alert-success alert-dismissible" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                             </button>
+                             <strong>Sukses!</strong> Berhasil ditambah.
+                          </div>'
+                        );
+                    }
+                    redirect('admin/c_pelaksanaan/pls_apb');
+            }else
+              redirect('c_login', 'refresh');
+          }
+
+            function edit_apb_desa($id=''){
+                $session['hasil'] = $this->session->userdata('logged_in');
+                $role = $session['hasil']->role;
+                if($this->session->userdata('logged_in') AND $role == 'Administrator')
+                {
+                  $data['hasil'] = $this->db->get_where("tbl_apb_desa", array('id_apb_desa' => "$id"))->row();
+                  $data['page_title'] = 'EDIT DANA CADANGAN';
+                  $this->db->join('tbl_apb_desa', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
+                  $data['v_kegiatan'] = $this->db->get_where('tbl_kegiatan', array('id_apb_desa' => "$id"))->row();
+                  $this->db->order_by('nama_bank', 'ASC');
+                  $data['v_bank'] = $this->db->get('tbl_bank');
+                  $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
+                  $data['content'] = $this->load->view('pelaksanaan/pls_apb/v_ubah', $data, TRUE);
+
+                  $this->load->view('utama', $data);
+                }else
+                  redirect('c_login', 'refresh');
+            }
+
+
+            function update_pls_apb() {
+              $session['hasil'] = $this->session->userdata('logged_in');
+              $role = $session['hasil']->role;
+              if($this->session->userdata('logged_in') AND $role == 'Administrator')
+              {
+                if (isset($_POST['simpan'])) {
+                $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
+                $tahun = $this->input->post('tahun');
+                $id = $this->input->post('id');
+                    $data = array(
+                          'tahun'              => $this->input->post('tahun'),
+                          'nama_apb'           => $this->input->post('nama_apb'),
+                          'nama_kegiatan'        => $this->input->post('nama_kegiatan'),
+                          'id_bank'            => $this->input->post('id_bank'),
+                          'kode'               => $this->input->post('kode'),
+                          'jumlah'             => $this->input->post('jumlah'),
+                          'uraian'             => $this->input->post('uraian'),
+                          'satuan'             => $this->input->post('satuan'),
+                          'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+                          'harga'              => preg_replace('/[Rp. ]/', '', $this->input->post('harga')),
+                          'tgl_apb_desa'       => $this->input->post('tgl_apb_desa')
+                    );
+                    $this->db->update("tbl_apb_desa", $data, array('id_apb_desa' => "$id"));
+                    $this->session->set_flashdata('msg',
+                      '
+                      <div class="alert alert-success alert-dismissible" role="alert">
+                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                         </button>
+                         <strong>Sukses!</strong> Berhasil diupdate.
+                      </div>'
+                    );
+                }
+                redirect('admin/c_pelaksanaan/pls_apb');
+
+              }
+            }
+
+            function hapus_apb_desa($id='') {
+              $session['hasil'] = $this->session->userdata('logged_in');
+              $role = $session['hasil']->role;
+              if($this->session->userdata('logged_in') AND $role == 'Administrator')
+              {
+                      $this->db->delete("tbl_apb_desa", array('id_apb_desa' => "$id"));
+                      $this->session->set_flashdata('msg',
+                        '
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                             <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                           </button>
+                           <strong>Sukses!</strong> Berhasil dihapus.
+                        </div>'
+                      );
+                      redirect('admin/c_pelaksanaan/pls_apb');
+              }
+            }
+
+            function print_apb_desa($id='') {
+                $data['page_title'] = 'PEMBIAYAAN DESA';
+                if ($id!='') {
+                  $this->db->like('tgl_apb_desa', "$id", 'before');
+                }
+                $this->db->order_by('id_apb_desa', 'DESC');
+                $data['v_data'] = $this->db->get('tbl_apb_desa');
+                $this->load->view('pelaksanaan/pls_apb/v_print', $data);
+            }
+
   
 
 }
+?>

@@ -84,6 +84,9 @@
                 <li id="nav-pls-pendapatan" class="">
                   <a href="<?php echo site_url('admin/c_pelaksanaan/pls_pendapatan/');?>" >Pelaksanaan Pendapatan</a>
                 </li>
+                <li id="nav-pls-apb" class="">
+                  <a href="<?php echo site_url('admin/c_pelaksanaan/pls_apb/');?>" >Pelaksanaan Dana Cadangan</a>
+                </li>
               </ul>
             </div>
             </li>

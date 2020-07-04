@@ -34,7 +34,7 @@ echo $this->session->flashdata('msg');
             <th  style="text-align: center">Rencana Selesai</th>
             <th  style="text-align: center">Dana Anggaran</th>
             <th  style="text-align: center">Dana Pengeluaran</th>
-            <th  style="text-align: center">Sisa</th>
+            <th  style="text-align: center">Sisa Dana</th>
             <th  style="text-align: center">Aksi</th>
         </tr>
     </thead>
@@ -58,7 +58,7 @@ echo $this->session->flashdata('msg');
             // var_dump($query);
             echo number_format($query, 0,",",".");
           ?>,-</span></td>
-          <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format(0,",","."); ?>,-</span></td>
+          <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format(($baris->anggaran-$query), 0,",","."); ?>,-</span></td>
           <td align="center">
             <a href="detail/<?php echo $baris->id_rka_belanja; ?>" class="btn btn-info btn-sm"><i class="fa fa-info-circle"></i></a>
             <!-- <a href="hapus_rab/<?php echo $baris->id_rka_belanja; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a> -->
@@ -66,14 +66,14 @@ echo $this->session->flashdata('msg');
         </tr>
       <?php
       // $sisa_anggaran = $anggaran - $query;
-      $total_anggaran += $query;
+      $total_anggaran += $baris->anggaran;
       } ?>
     </tbody>
     <tfoot>
       <tr>
         <th colspan="6" style="text-align:right">Total Pengeluaran :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_anggaran,0,",","."); ?>,-</span></th>
-        <th></th>
+        <th colspan="3" ></th>
       </tr>
     </tfoot>
 </table>

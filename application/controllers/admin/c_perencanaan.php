@@ -679,7 +679,7 @@ class C_perencanaan extends CI_Controller {
               if($this->session->userdata('logged_in') AND $role == 'Administrator')
               {
                 if (isset($_POST['simpan'])) {
-                $id_rka_pendapatan = $this->input->post('id_rka_pendapatan', TRUE);
+                $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
                 $tahun = $this->input->post('tahun');
                 $id = $this->input->post('id');
                     $data = array(

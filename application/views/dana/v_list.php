@@ -5,11 +5,8 @@
 <?php
 echo $this->session->flashdata('msg');
 ?>
-<div class="col-md-12">
-  <div class="col-md-6">
-    <h4 style="margin:0px; margin-bottom: 10px;">
-      <center>Dana Desa</center>
-    </h4>
+<div style="width: 80%; margin: 0px auto;">
+  
     <table id="table_dana" class="table table-bordered table-striped display responsive" width="100%">
       <thead>
         <tr>
@@ -17,6 +14,7 @@ echo $this->session->flashdata('msg');
           <th>Tahun</th>
           <th>Dana Masuk</th>
           <th>Dana Keluar</th>
+          <!-- <th>Sisa Dana</th> -->
         </tr>
       </thead>
       <tbody>
@@ -32,30 +30,12 @@ echo $this->session->flashdata('msg');
                 <?php } else { ?>
                   <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format(null,",","."); ?>,-</span></td>
                   <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($baris["dk"],0,",","."); ?>,-</span></td>
+                  <!-- <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format(($baris["dm"]-$baris["dk"]),0,",","."); ?>,-</span></td> -->
                 <?php } ?>
               </tr>
         <?php } ?>
       </tbody>
     </table>
-  </div>
-  <div class="col-md-6">
-    <h4 style="margin:0px; margin-bottom: 10px;">
-      <center>Dana Cadangan</center>
-    </h4>
-    <table id="table_cad" class="table table-bordered table-striped display responsive" width="100%">
-      <thead>
-        <tr>
-          <th width="12%;">No.</th>
-          <th>Keterangan</th>
-          <th>Tgl</th>
-          <th>Dana Masuk</th>
-          <th>Dana Keluar</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </div>
 </div>
 
 <script>
