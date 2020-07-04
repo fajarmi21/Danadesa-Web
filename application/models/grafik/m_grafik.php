@@ -35,8 +35,12 @@ class M_Grafik extends CI_Model {
 
     public function getDesa()
     {
-        $query = $this->db->query("SELECT id_dusun,anggaran,tahun from tbl_rka_belanja WHERE id_dusun = '0'");
-        return $query->result_array();  
+        foreach ($this->getTahun() as $key) {
+            $query[] = $this->db->query("SELECT id_dusun,anggaran,tahun from tbl_rka_belanja WHERE id_dusun = '0' and tahun =".$key['tahun'])->row_array();
+            $x = array('anggaran' => '0', 'tahun' => $key['tahun']);
+            if (end($query) == null) $query[end((array_keys($query)))] = $x;
+        }
+        return $query;
     }
 
     public function getKrajan()
