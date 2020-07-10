@@ -42,11 +42,11 @@ class Pendapatan extends CI_Controller {
                 if ($this->db->trans_status() === TRUE) {
                     $this->db->trans_commit();
                     $r['status'] = '1';
-                    $r['message'] = 'update successfully';
+                    $r['message'] = 'update Sukses';
                 } else {
                     $this->db->trans_rollback();
                     $r['status'] = '0';
-                    $r['message'] = 'update unsuccessfully';
+                    $r['message'] = 'update Gagal';
                 }
         echo json_encode($r);
     }
@@ -66,11 +66,11 @@ class Pendapatan extends CI_Controller {
         if ($this->db->trans_status() === TRUE) {
             $this->db->trans_commit();
             $r['status'] = '1';
-            $r['message'] = 'Insert successfully';
+            $r['message'] = 'Insert Sukses';
         } else {
             $this->db->trans_rollback();
             $r['status'] = '0';
-            $r['message'] = 'Insert unsuccessfully';
+            $r['message'] = 'Insert Gagal';
         }
         echo json_encode($r);
     }

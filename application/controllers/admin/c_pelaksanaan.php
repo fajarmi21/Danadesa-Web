@@ -250,7 +250,7 @@ class C_pelaksanaan extends CI_Controller {
       if ($aksi == 'add') {
         // var_dump($id);
         $this->add_detail();
-      }elseif ($aksi == 'print') {
+      }elseif ($aksi == 'print') { 
         $this->print_detail();
       }else {
         $this->lists_detail($aksi);
@@ -449,13 +449,7 @@ class C_pelaksanaan extends CI_Controller {
       $role = $session['hasil']->role;
       if($this->session->userdata('logged_in') AND $role == 'Administrator')
       {
-        if ($aksi == 'add') {
-          $this->add_rka_pendapatan();
-        }elseif ($aksi == 'print') {
-          $this->print_rka_pendapatan();
-        }else {
           $this->lists_rka_pendapatan();
-        }
       }else{
         redirect('c_login', 'refresh');
       }
@@ -478,14 +472,8 @@ class C_pelaksanaan extends CI_Controller {
       $role = $session['hasil']->role;
       if($this->session->userdata('logged_in') AND $role == 'Administrator')
       {
-        if ($aksi == 'add') {
-        // var_dump($id);
-          $this->add_detail_pnd();
-        }elseif ($aksi == 'print') {
-          $this->print_detail_pnd();
-        }else {
           $this->lists_detail_pnd($aksi);
-        }
+        
       }else redirect('c_login', 'refresh');
     }
 
