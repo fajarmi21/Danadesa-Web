@@ -154,10 +154,10 @@ class Belanja extends CI_Controller {
 
         if(!$imagename){
           echo json_encode(array('message'=>'required file is empty.'));
-        }else{        
+        }else{
             $dir = 'uploads/detail/';
             
-            $newname = $dir . date('Ymd') . $this->input->post('id_rka_belanja') . '.jpg';
+            $newname = $dir . date('Ymdhms') . $this->input->post('id_rka_belanja') . '.jpg';
             
             move_uploaded_file($imagename, $newname);
 
