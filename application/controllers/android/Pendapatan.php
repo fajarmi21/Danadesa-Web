@@ -8,7 +8,7 @@ class Pendapatan extends CI_Controller {
     }
 	public function index() 
 	{
-        // $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_rka_pendapatan.id_kegiatan');
+        $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_rka_pendapatan.id_kegiatan');
         $sql = $this->db->get('tbl_rka_pendapatan')->result();
         echo json_encode($sql);
 
@@ -29,7 +29,7 @@ class Pendapatan extends CI_Controller {
         $data = array(
                 'id_rka_pendapatan' => $this->input->post('id_rka_pendapatan'),
                 'id_kegiatan'       => $id_kegiatan,
-                'tahun_pendapatan'  => $this->input->post('tahun_pendapatan'),
+                'tahun'             => $this->input->post('tahun'),
                 'jenis'             => $this->input->post('jenis'),
                 'lokasi_kegiatan'   => $this->input->post('lokasi_kegiatan'),
                 'jumlah'            => $this->input->post('jumlah'),
