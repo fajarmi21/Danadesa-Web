@@ -66,12 +66,12 @@ echo $this->session->flashdata('msg');
         </tr>
       <?php
       // $sisa_anggaran = $anggaran - $query;
-      $total_anggaran += $baris->anggaran;
+      $total_anggaran += $query;
       } ?>
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="6" style="text-align:right">Total Pengeluaran :</th>
+        <th colspan="7" style="text-align:right">Total Pengeluaran :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_anggaran,0,",","."); ?>,-</span></th>
         <th colspan="3" ></th>
       </tr>

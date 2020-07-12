@@ -742,8 +742,8 @@ class C_pelaksanaan extends CI_Controller {
                 {
                   $data['hasil'] = $this->db->get_where("tbl_apb_desa", array('id_apb_desa' => "$id"))->row();
                   $data['page_title'] = 'EDIT DANA CADANGAN';
-                  $this->db->join('tbl_apb_desa', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
-                  $data['v_kegiatan'] = $this->db->get_where('tbl_kegiatan', array('id_apb_desa' => "$id"))->row();
+                  $this->db->order_by('nama_kegiatan', 'ASC');
+                  $data['v_kegiatan'] = $this->db->get('tbl_kegiatan');
                   $this->db->order_by('nama_bank', 'ASC');
                   $data['v_bank'] = $this->db->get('tbl_bank');
                   $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
@@ -767,15 +767,16 @@ class C_pelaksanaan extends CI_Controller {
                     $data = array(
                           'tahun'              => $this->input->post('tahun'),
                           'nama_apb'           => $this->input->post('nama_apb'),
-                          'nama_kegiatan'        => $this->input->post('nama_kegiatan'),
+                          'id_kegiatan'        => $this->input->post('id_kegiatan'),
+                          'jumlah'             => $this->input->post('jumlah'),
+                          'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+                          'tgl_apb_desa'       => $this->input->post('tgl_apb_desa'),
+
                           'id_bank'            => $this->input->post('id_bank'),
                           'kode'               => $this->input->post('kode'),
-                          'jumlah'             => $this->input->post('jumlah'),
                           'uraian'             => $this->input->post('uraian'),
                           'satuan'             => $this->input->post('satuan'),
-                          'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
-                          'harga'              => preg_replace('/[Rp. ]/', '', $this->input->post('harga')),
-                          'tgl_apb_desa'       => $this->input->post('tgl_apb_desa')
+                          'harga'              => preg_replace('/[Rp. ]/', '', $this->input->post('harga'))
                     );
                     $this->db->update("tbl_apb_desa", $data, array('id_apb_desa' => "$id"));
                     $this->session->set_flashdata('msg',

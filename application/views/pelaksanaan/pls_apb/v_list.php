@@ -67,7 +67,7 @@ echo $this->session->flashdata('msg');
           </td>
         </tr>
       <?php
-      $total_harga    += $baris->anggaran;
+      $total_harga    += $baris->harga;
       } ?>
     </tbody>
     <tfoot>
