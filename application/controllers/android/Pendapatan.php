@@ -74,4 +74,48 @@ class Pendapatan extends CI_Controller {
         }
         echo json_encode($r);
     }
+
+    public function PndPls()
+    {
+        $this->db->join('tbl_rka_pendapatan', 'tbl_detail_pendapatan.id_rka_pendapatan=tbl_rka_pendapatan.id_rka_pendapatan');
+        $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_rka_pendapatan.id_kegiatan');
+        $this->db->where(array('tbl_rka_pendapatan.id_rka_pendapatan'=>$this->input->post('id_rka_pendapatan')));
+        $sql = $this->db->get('tbl_detail_pendapatan')->result();
+        echo json_encode($sql);
+    }
+
+    public function uploadDetail()
+    {
+        $imagename = $_FILES['imagename']['tmp_name'];
+        $id_rka_pendapatan = $_POST['id_rka_pendapatan'];
+        $tgl_detail_p = $_POST['tgl_detail_p'];
+        $ket_detail_p = $_POST['ket_detail_p'];
+        $harga_detail_p = $_POST['harga_detail_p'];
+
+        if(!$tgl_detail_p){
+          echo json_encode(array('message'=>'required file is empty.'));
+        }else{
+
+            $data = array(
+                'id_rka_pendapatan'    => $id_rka_pendapatan,
+                'tgl_detail_p'         => $tgl_detail_p,
+                'ket_detail_p'         => $ket_detail_p,
+                'harga_detail_p'       => $harga_detail_p
+            );
+          
+            $this->db->trans_begin();
+                $this->db->insert("tbl_detail_pendapatan", $data);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
+                $this->db->trans_commit();
+                $r['status'] = '1';
+                $r['message'] = 'Insert Sukses';
+            } else {
+                $this->db->trans_rollback();
+                $r['status'] = '0';
+                $r['message'] = 'Insert Gagal';
+            }
+            echo json_encode($r);
+        }
+    }
 }

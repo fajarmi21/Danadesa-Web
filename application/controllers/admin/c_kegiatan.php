@@ -63,6 +63,16 @@ class C_kegiatan extends CI_Controller {
 
       		if ($this->form_validation->run() == TRUE)
       		{
+            $newfile = $this->input->post('image-data', TRUE);
+    
+            define('UPLOAD_DIR', 'uploads/');
+            $img = $newfile;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = UPLOAD_DIR . $this->input->post('kode_kegiatan') . '.jpg';
+            $success = file_put_contents($file, $data);
+            $path = $file;
 
             // $tahun = date('Y');
             // $this->db->where('thn', $tahun);
@@ -78,13 +88,14 @@ class C_kegiatan extends CI_Controller {
             }
 
       				$data = array(
-                'kode_kegiatan' => $no_urut,
-      					'nama_kegiatan' => $nama_kegiatan,
-                'nik_kegiatan' => $nik_kegiatan,
+                'kode_kegiatan'   => $no_urut,
+      					'nama_kegiatan'   => $nama_kegiatan,
+                'nik_kegiatan'    => $nik_kegiatan,
                 'alamat_kegiatan' => $alamat_kegiatan,
-                'telp_kegiatan' => $telp_kegiatan,
-                'user_kegiatan' => $user_kegiatan,
-                'pass_kegiatan' => $pass_kegiatan
+                'telp_kegiatan'   => $telp_kegiatan,
+                'user_kegiatan'   => $user_kegiatan,
+                'pass_kegiatan'   => $pass_kegiatan,
+                'foto_ketua'      => $path
       				);
       				$this->db->insert("tbl_kegiatan",$data);
               $this->session->set_flashdata('msg',
@@ -133,17 +144,33 @@ class C_kegiatan extends CI_Controller {
             $user_kegiatan = $this->input->post('user_kegiatan',TRUE);
             $pass_kegiatan = $this->input->post('pass_kegiatan',TRUE);
 
+
+
+
         		$this->form_validation->set_rules('nama_kegiatan', 'nama_kegiatan','nik_kegiatan', 'alamat_kegiatan', 'telp_kegiatan', 'user_kegiatan', 'pass_kegiatan', 'required');
 
         		if ($this->form_validation->run() == TRUE)
         		{
+
+              $newfile = $this->input->post('image-data', TRUE);
+    
+            define('UPLOAD_DIR', 'uploads/');
+            $img = $newfile;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = UPLOAD_DIR . $this->input->post('kode_kegiatan') . '.jpg';
+            $success = file_put_contents($file, $data);
+            $path = $file;
+
         				$data = array(
         					'nama_kegiatan' => $nama_kegiatan,
                   'nik_kegiatan' => $nik_kegiatan,
                   'alamat_kegiatan' => $alamat_kegiatan,
                   'telp_kegiatan' => $telp_kegiatan,
                   'user_kegiatan' => $user_kegiatan,
-                  'pass_kegiatan' => $pass_kegiatan
+                  'pass_kegiatan' => $pass_kegiatan,
+                  'foto_ketua'      => $path
         				);
         				$this->db->update("tbl_kegiatan", $data, array('id_kegiatan' => "$id"));
                 $this->session->set_flashdata('msg',

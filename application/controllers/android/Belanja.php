@@ -120,29 +120,6 @@ class Belanja extends CI_Controller {
         echo json_encode($sql);
     }
     
-    public function InsertPrcPls()
-    {
-        // $this->db->join('tbl_rka_belanja', 'tbl_detail.id_rka_belanja=tbl_rka_belanja.id_rka_belanja');
-        // $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_rka_belanja.id_kegiatan');
-        // $this->db->where(array('tbl_rka_belanja.id_rka_belanja'=>$this->input->post('id_rka_belanja')));
-        // $sql = $this->db->get('tbl_detail')->result();
-        // echo json_encode($sql);
-
-        $this->db->trans_begin();
-        $x = $this->db->get_where('tbl_rka_belanja', array('id_rka_belanja' => $this->input->post('id_rka_belanja')))->row('id_apb_desa');
-        $this->db->insert("tbl_apb_desa");
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === TRUE) {
-            $this->db->trans_commit();
-            $r['status'] = '1';
-            $r['message'] = 'Inser Sukses';
-        } else {
-            $this->db->trans_rollback();
-            $r['status'] = '0';
-            $r['message'] = 'Inser Gagal';
-        }
-        echo json_encode($r);
-    }
 
     public function uploadDetail()
     {

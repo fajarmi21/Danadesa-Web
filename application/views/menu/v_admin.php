@@ -49,9 +49,9 @@
                 <li id="nav-program" class="">
                   <a href="<?php echo site_url('admin/c_program/');?>" >Program</a>
                 </li>
-                <li id="nav-dana" class="">
+                <!-- <li id="nav-dana" class="">
                   <a href="<?php echo site_url('admin/c_dana/');?>" >Dana Desa</a>
-                </li>
+                </li> -->
                 
               </ul>
             </div>
