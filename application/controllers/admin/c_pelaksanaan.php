@@ -761,9 +761,9 @@ class C_pelaksanaan extends CI_Controller {
               if($this->session->userdata('logged_in') AND $role == 'Administrator')
               {
                 if (isset($_POST['simpan'])) {
-                $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
+                // $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
                 $tahun = $this->input->post('tahun');
-                $id = $this->input->post('id');
+                $id = $this->input->post('id_apb_desa');
                     $data = array(
                           'tahun'              => $this->input->post('tahun'),
                           'nama_apb'           => $this->input->post('nama_apb'),
@@ -778,7 +778,7 @@ class C_pelaksanaan extends CI_Controller {
                           'satuan'             => $this->input->post('satuan'),
                           'harga'              => preg_replace('/[Rp. ]/', '', $this->input->post('harga'))
                     );
-                    $this->db->update("tbl_apb_desa", $data, array('id_apb_desa' => "$id"));
+                    $this->db->update("tbl_apb_desa", $data);
                     $this->session->set_flashdata('msg',
                       '
                       <div class="alert alert-success alert-dismissible" role="alert">

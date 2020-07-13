@@ -118,4 +118,56 @@ class Pendapatan extends CI_Controller {
             echo json_encode($r);
         }
     }
+
+
+    public function deleteDetail()
+    {      
+        $this->db->trans_begin();
+            $this->db->delete('tbl_detail_pendapatan', array('ket_detail_p' => $this->input->post('ket_detail_p')));
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $this->db->trans_commit();
+            $r['status'] = '1';
+            $r['message'] = 'Delete Sukses';
+        } else {
+            $this->db->trans_rollback();
+            $r['status'] = '0';
+            $r['message'] = 'Delete Gagal';
+        }
+        echo json_encode($r);
+    }
+
+    public function updateDetail()
+    {
+        $id_rka_pendapatan = $_POST['id_rka_pendapatan'];
+        $data['tgl_detail_p'] = $_POST['tgl_detail_p'];
+        $data['ket_detail_p'] = $_POST['ket_detail_p'];
+        $ket_detail_a = $_POST['ket_detail_a'];
+        $data['harga_detail_p'] = $_POST['harga_detail_p'];
+
+        // if($_POST['imagename'] != "kosong"){
+        //     $imagename = $_FILES['imagename']['tmp_name'];
+        //     $dir = 'uploads/detail/';
+            
+        //     $newname = $dir . date('Ymdhms') . $this->input->post('id_rka_belanja') . '.jpg';
+            
+        //     move_uploaded_file($imagename, $newname);
+        //     $data['nota_detail'] = $newname;
+        // }
+          
+        // $this->db->trans_begin();
+        $this->db->update("tbl_detail_pendapatan", $data, array('ket_detail_p' => $ket_detail_p));
+        // $this->db->trans_complete();
+        if ($this->db->affected_rows() > 0) {
+            // $this->db->trans_commit();
+            $r['status'] = '1';
+            $r['message'] = 'Update Sukses';
+        } else {
+            // $this->db->trans_rollback();
+            $r['status'] = '0';
+            $r['message'] = $this->db->affected_rows();
+        }
+        // $x['message'] = $_POST['imagename'];
+        echo json_encode($r);
+    }
 }

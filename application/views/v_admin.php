@@ -157,7 +157,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Anggaran dusun per tahun',
+                     labelString: 'Anggaran Belanja Dusun',
                      fontSize: 20 
                   }
             }]            
@@ -220,7 +220,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Anggaran desa per hari',
+                     labelString: 'Anggaran Pendapatan Desa',
                      fontSize: 20 
                   }
             }]            
@@ -282,7 +282,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Anggaran desa per tahun',
+                     labelString: 'Anggaran Belanja Desa',
                      fontSize: 20 
                   }
             }]            

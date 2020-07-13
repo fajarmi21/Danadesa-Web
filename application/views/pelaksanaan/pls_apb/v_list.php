@@ -63,7 +63,7 @@ echo $this->session->flashdata('msg');
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->harga, 0,",","."); ?>,-</span></td>
           <td align="center">
             <a href="edit_apb_desa/<?php echo $baris->id_apb_desa; ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
-            <a href="hapus_apb_desa/<?php echo $baris->id_apb_desa; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a>
+            <!-- <a href="hapus_apb_desa/<?php echo $baris->id_apb_desa; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a> -->
           </td>
         </tr>
       <?php
