@@ -27,43 +27,33 @@ class Cadangan extends CI_Controller {
 
     public function UpdateDnc()
     {
-        $this->db->trans_begin();
+        // $this->db->trans_begin();
         $id = $this->input->post('id');
         $id_bank = $this->db->get_where("tbl_bank",array('nama_bank' => $this->input->post('nama_bank')))->row("id_bank");
         $id_kegiatan = $this->db->get_where("tbl_kegiatan",array('nama_kegiatan' => $this->input->post('nama_kegiatan')))->row("id_kegiatan");
         $data = array(
-
-                          // 'tahun'              => $this->input->post('tahun'),
-                          // 'nama_apb'           => $this->input->post('nama_apb'),
-                          // 'id_kegiatan'        => $id_kegiatan,
-                          // 'id_bank'            => $id_bank,
-                          // 'uraian'             => $this->input->post('uraian'),
-                          // 'jumlah'             => $this->input->post('jumlah'),
-                          // 'anggaran'              => $this->input->post('jumlah'),
-                          // 'tgl_apb_desa'       => date('d-m-Y')
-                'id_bank'            => $id_bank,
-                'id_apb_desa'        => $id,
-                // 'bank'               => $this->input->post('bank'),
-                'tahun'              => $this->input->post('tahun'),
-                // 'tgl_apb_desa'       => $this->input->post('tgl_apb_desa'),
-                'uraian'             => $this->input->post('uraian'),
-                'satuan'             => $this->input->post('satuan'),
-                'jumlah'             => $this->input->post('jumlah'),
-                'anggaran'           => $this->input->post('anggaran'),
-                'harga'              => $this->input->post('harga')
+            'tahun'              => $this->input->post('tahun'),
+            'nama_apb'           => $this->input->post('nama_apb'),
+            'id_kegiatan'        => $id_kegiatan,
+            'jumlah'             => $this->input->post('jumlah'),
+            'anggaran'           => $this->input->post('anggaran'),
+            'tgl_apb_desa'       => $this->input->post('tgl_apb_desa'),
+            'id_bank'            => $id_bank,
+            'uraian'             => $this->input->post('uraian'),
+            'satuan'             => $this->input->post('satuan'),
+            'harga'              => $this->input->post('harga'),
               );
-        $this->db->update("tbl_apb_desa", $data);
-        $this->db->trans_complete();
-
-                if ($this->db->trans_status() === TRUE) {
-                    $this->db->trans_commit();
-                    $r['status'] = '1';
-                    $r['message'] = 'update Sukses';
-                } else {
-                    $this->db->trans_rollback();
-                    $r['status'] = '0';
-                    $r['message'] = 'update Gagal';
-                }
+        $this->db->update("tbl_apb_desa", $data, array('id_apb_desa' => $id));
+        // $this->db->trans_complete();
+            if ($this->db->affected_rows() > 0) {
+                // $this->db->trans_commit();
+                $r['status'] = '1';
+                $r['message'] = 'update Sukses';
+            } else {
+                // $this->db->trans_rollback();
+                $r['status'] = '0';
+                $r['message'] = $this->db->affected_rows();
+            }
         echo json_encode($r);
     }
 
