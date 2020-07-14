@@ -280,7 +280,8 @@ class C_perencanaan extends CI_Controller {
                       'jenis'              => $this->input->post('jenis'),
                       'lokasi_kegiatan'    => $this->input->post('lokasi_kegiatan'),
                       'jumlah'             => preg_replace('/[Rp. ]/', '', $this->input->post('jumlah')),
-                      'tgl_pembahasan'     => $this->input->post('tgl_pembahasan')
+                      'tgl_pembahasan'     => $this->input->post('tgl_pembahasan'),
+                      'tgl_rka_pendapatan'     => $this->input->post('tgl_rka_pendapatan')
                     );
                     $this->db->insert("tbl_rka_pendapatan", $data);
                     $this->session->set_flashdata('msg',
@@ -331,7 +332,8 @@ class C_perencanaan extends CI_Controller {
                   'jenis'              => $this->input->post('jenis'),
                   'lokasi_kegiatan'    => $this->input->post('lokasi_kegiatan'),
                   'jumlah'             => preg_replace('/[Rp. ]/', '', $this->input->post('jumlah')),
-                  'tgl_pembahasan'     => $this->input->post('tgl_pembahasan')
+                  'tgl_pembahasan'     => $this->input->post('tgl_pembahasan'),
+                  'tgl_rka_pendapatan'     => $this->input->post('tgl_rka_pendapatan')
                 );
                 $this->db->update("tbl_rka_pendapatan", $data, array('id_rka_pendapatan' => "$id"));
                 $this->session->set_flashdata('msg',

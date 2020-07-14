@@ -541,7 +541,8 @@ class C_pelaksanaan extends CI_Controller {
           'id_rka_pendapatan'     => $this->input->post('id_rka_pendapatan'),
           'tgl_detail_p'          => $this->input->post('tgl_detail_p'),
           'ket_detail_p'          => $this->input->post('ket_detail_p'),
-          'harga_detail_p'        => preg_replace('/[Rp. ]/', '', $this->input->post('harga_detail_p'))
+          'harga_detail_p'        => preg_replace('/[Rp. ]/', '', $this->input->post('harga_detail_p')),
+          'foto_p'                => $path
         );
         $this->db->insert("tbl_detail_pendapatan", $data);
         $this->session->set_flashdata('msg',
@@ -565,10 +566,10 @@ class C_pelaksanaan extends CI_Controller {
     {
       // var_dump($this->input->post('id_pelaksanaan'));
       // echo $this->input->post('id_pelaksanaan');
-      $data['detail'] = $this->db->get_where("tbl_detail", array('id_detail' => "$id"))->row();
-      $data['page_title'] = 'Rencana Anggaran Biaya';
-      $this->db->order_by('id_rka_belanja', 'ASC');
-      $data['v_rka_belanja'] = $this->db->get('tbl_rka_belanja');
+      $data['detail'] = $this->db->get_where("tbl_detail_pendapatan", array('id_detail_p' => "$id"))->row();
+      $data['page_title'] = 'Edit Pelaksanaan Pendapatan';
+      $this->db->order_by('id_rka_pendapatan', 'ASC');
+      $data['v_rka_belanja'] = $this->db->get('tbl_rka_pendapatan');
       $this->db->order_by('nama_bidang', 'ASC');
       $data['v_bidang'] = $this->db->get('tbl_bidang');
       $this->db->order_by('nama_program', 'ASC');
@@ -580,7 +581,7 @@ class C_pelaksanaan extends CI_Controller {
       $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
       $data['id'] = $idp;
       $data['id_detail'] = $id;
-      $data['content'] = $this->load->view('pelaksanaan/rab/detail/v_ubah', $data, TRUE);
+      $data['content'] = $this->load->view('pelaksanaan/pls_pendapatan/pnd_detail/v_ubah', $data, TRUE);
       $this->load->view('utama', $data);
     }else redirect('c_login', 'refresh');
   }
@@ -608,7 +609,7 @@ class C_pelaksanaan extends CI_Controller {
           'tgl_detail'    => $this->input->post('tgl_detail'),
           'keterangan_detail'  => $this->input->post('barang'),
           'harga_detail'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
-          'nota_detail'        => $path
+          'foto_p'                => $path
         );
         $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail'), 'id_rka_belanja' => $this->input->post('id_rka_belanja')));
         $this->session->set_flashdata('msg',

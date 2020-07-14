@@ -18,31 +18,31 @@
 			$this->db->where('tahun', $tahun);
 			?>
 
-			<?php echo form_open('admin/c_pelaksanaan/simpan_detail'); ?>
-				<input type="hidden" name="id_detail" id="id_detail" value="<?php echo $id_detail; ?>" required />
-				<input type="hidden" name="id_rka_belanja" id="id_rka_belanja" value="<?php echo $id; ?>" required />
-				<input type="hidden" name="tgl_detail" id="tgl_detail" value="<?php echo date('Y-m-d'); ?>" required />
+			<?php echo form_open('admin/c_pelaksanaan/simpan_detail_pnd'); ?>
+				<input type="hidden" name="id_detail" id="id_detail_p" value="<?php echo $id_detail_p; ?>" required />
+				<input type="hidden" name="id_rka_pendapatan" id="id_rka_pendapatan" value="<?php echo $id; ?>" required />
+				<input type="hidden" name="tgl_detail_p" id="tgl_detail_p" value="<?php echo date('Y-m-d'); ?>" required />
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="barang">Barang</label>
 					<div class="col-md-8">
-						<textarea name="barang" id="barang" rows="5" cols="80" placeholder="Barang" required><?php echo $detail->keterangan_detail; ?></textarea>
+						<textarea name="barang" id="barang" rows="5" cols="66" placeholder="Barang" required><?php echo $detail->ket_detail_p; ?></textarea>
 						<span>&nbsp;</span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="anggaran">Harga</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control input-md" name="anggaran" size="100" placeholder="Anggaran" value="<?php echo $detail->harga_detail;?>" required />
+						<input type="text" class="form-control input-md" name="anggaran" size="100" placeholder="Anggaran" value="<?php echo $detail->harga_detail_p;?>" required />
 						<span>&nbsp;</span>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="image-editor ">
-						<label class="col-md-4 control-label" for="bukti">Bukti Belanja</label>
+						<label class="col-md-4 control-label" for="bukti">Foto</label>
 						<div class="col-md-8">
 							<div id="lihat">
 								<div class="cropit-image-preview"></div>
-							    <input type="range" class="cropit-image-zoom-input" style="width: 200px; background-image: url(<?php echo $detail->nota_detail; ?>);">
+							    <input type="range" class="cropit-image-zoom-input" style="width: 200px; background-image: url(<?php echo $detail->foto_p; ?>);">
 								<br>
 							</div>
 							<input type="file" id="image" class="cropit-image-input custom" accept="image/*">
@@ -61,6 +61,7 @@
 		</div>
 	</div>
 </div>
+
 
 <style>
 	/* Show load indicator when image is being loaded */
@@ -111,7 +112,7 @@
 	$(function() {
 		$('.image-editor').cropit({
 			imageState: {
-				src: '<?= base_url() . $detail->nota_detail ?>'
+				src: '<?= base_url() . $detail->foto_p ?>'
 			}
 		});
 

@@ -32,7 +32,8 @@ echo $this->session->flashdata('msg');
             <th style="text-align: center">Pelaksana Kegiatan</th>
             <th style="text-align: center">Kelompok</th>
             <th style="text-align: center">Lokasi Kegiatan</th>
-            <th style="text-align: center">Tanggal Pembahasan</th>
+            <th style="text-align: center">Rencana Dimulai</th>
+            <th style="text-align: center">Rencana Selesai</th>
             <th style="text-align: center">Rencana Pendapatan</th>
             <th style="text-align: center">Pendapatan</th>
             <th style="text-align: center">Aksi</th>
@@ -46,11 +47,12 @@ echo $this->session->flashdata('msg');
         <tr>
           <th><?php echo $no++; ?>.</th>
           <td><?php echo $baris->jenis; ?></td>
-          <td><?php echo $baris->tahun_pendapatan; ?></td>
+          <td><?php echo $baris->tahun; ?></td>
           <td><?php echo $baris->nama_kegiatan; ?></td>
           <td><?php echo $baris->kelompok; ?></td>
           <td><?php echo $baris->lokasi_kegiatan; ?></td>
           <td><?php echo $this->page_model->tgl_id("$baris->tgl_pembahasan"); ?></td>
+          <td><?php echo $this->page_model->tgl_id("$baris->tgl_rka_pendapatan"); ?></td>
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->jumlah, 0,",","."); ?>,-</span></td>
           <td>Rp.<span style="float:right;">
           <?php

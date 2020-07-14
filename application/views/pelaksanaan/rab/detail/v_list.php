@@ -35,12 +35,12 @@
               <table id="table_id" class="table table-bordered table-striped display" cellspacing="0" width="100%">
                   <thead>
                       <tr>
-                         <th width="1%;">No.</th>
-                          <th width="10%;">tanggal </th>
-                          <th width="10%;">keterangan</th>
-                          <th width="5%;">harga</th>
-                          <th width="10%;" style="text-align: center;">nota</th>
-                          <th width="8%;">Aksi</th>
+                         <th style="text-align: center;">No.</th>
+                          <th style="text-align: center;">Tanggal </th>
+                          <th style="text-align: center;">Deskripsi Pengeluaran</th>
+                          <th style="text-align: center;">Biaya</th>
+                          <th style="text-align: center;">Bukti Belanja</th>
+                          <th style="text-align: center;">Aksi</th>
                       </tr>
                   </thead>
                   <tbody>
