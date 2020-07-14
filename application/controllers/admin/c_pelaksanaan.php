@@ -528,7 +528,7 @@ class C_pelaksanaan extends CI_Controller {
       if (isset($_POST['simpan'])) {
         $newfile = $this->input->post('image-data', TRUE);
     
-        define('UPLOAD_DIR', 'uploads/nota/');
+        define('UPLOAD_DIR', 'uploads/foto/');
         $img = $newfile;
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -595,7 +595,7 @@ class C_pelaksanaan extends CI_Controller {
         $id = $this->input->post('id');
         $newfile = $this->input->post('image-data', TRUE);
     
-        define('UPLOAD_DIR', 'uploads/nota/');
+        define('UPLOAD_DIR', 'uploads/foto/');
         $img = $newfile;
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -605,10 +605,10 @@ class C_pelaksanaan extends CI_Controller {
         $path = $file;
 
         $data = array(
-          'id_rka_belanja'     => $this->input->post('id_rka_belanja'),
-          'tgl_detail'    => $this->input->post('tgl_detail'),
-          'keterangan_detail'  => $this->input->post('barang'),
-          'harga_detail'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+          'id_rka_belanja'     => $this->input->post('id_rka_pendapatan'),
+          'tgl_detail_p'    => $this->input->post('tgl_detail_p'),
+          'ket_detail_p'  => $this->input->post('barang'),
+          'harga_detail_p'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
           'foto_p'                => $path
         );
         $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail'), 'id_rka_belanja' => $this->input->post('id_rka_belanja')));
