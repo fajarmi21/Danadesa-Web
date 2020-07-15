@@ -75,7 +75,7 @@ echo $this->session->flashdata('msg');
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="8" style="text-align:right">Total :</th>
+        <th colspan="9" style="text-align:right">Total :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_jumlah,0,",","."); ?>,-</span></th>
         <th colspan="2"></th>
       </tr>
@@ -101,6 +101,7 @@ $(document).ready(function() {
         dom: 'Bfrtip',
         buttons: [
             {
+                // class: "btn btn-warning"
                 extend: 'print',
                 exportOptions: {
                     columns: ':visible'

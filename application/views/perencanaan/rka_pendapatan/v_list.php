@@ -17,7 +17,7 @@
 <hr>
 
 <a href="rka_pendapatan/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create</a>
-<a href="rka_pendapatan/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a>
+<!-- <a href="rka_pendapatan/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a> -->
 <hr>
 <?php
 echo $this->session->flashdata('msg');
