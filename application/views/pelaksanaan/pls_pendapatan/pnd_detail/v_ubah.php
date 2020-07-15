@@ -9,7 +9,7 @@
 <div class="col-md-8">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><b>Form Tambah</b> </h3>
+			<h3 class="panel-title"><b>Form Edit</b> </h3>
 		</div>
 		<div class="panel-body">
 			<?php $flashmessage = $this->session->flashdata('exist');
@@ -18,14 +18,14 @@
 			$this->db->where('tahun', $tahun);
 			?>
 
-			<?php echo form_open('admin/c_pelaksanaan/simpan_detail_pnd'); ?>
-				<input type="hidden" name="id_detail" id="id_detail_p" value="<?php echo $id_detail_p; ?>" required />
+			<?php echo form_open('admin/c_pelaksanaan/update_detail_pnd'); ?>
+				<input type="hidden" name="id_detail" id="id_detail_p" value="<?php echo $id_detail; ?>" required />
 				<input type="hidden" name="id_rka_pendapatan" id="id_rka_pendapatan" value="<?php echo $id; ?>" required />
 				<input type="hidden" name="tgl_detail_p" id="tgl_detail_p" value="<?php echo date('Y-m-d'); ?>" required />
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="barang">Barang</label>
 					<div class="col-md-8">
-						<textarea name="barang" id="barang" rows="5" cols="66" placeholder="Barang" required><?php echo $detail->ket_detail_p; ?></textarea>
+						<textarea name="barang" id="barang" rows="5" cols="66" placeholder="Barang" value="<?php echo $detail->ket_detail_p; ?>" required><?php echo $detail->ket_detail_p; ?></textarea>
 						<span>&nbsp;</span>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 				<hr>
 				<div class="form-group">
 					<label class="col-md-0 control-label" for="simpan"></label>
-					<button type="button" class="btn btn-danger" name="batal" id="batal" onclick="location.href='<?= base_url() ?>admin/c_pelaksanaan/detail/<?php echo $id; ?>'">Batal</button>
+					<button type="button" class="btn btn-danger" name="batal" id="batal" onclick="location.href='<?= base_url() ?>admin/c_pelaksanaan/detail_pnd/<?php echo $id; ?>'">Batal</button>
 					<button type="submit" class="btn btn-success" name="simpan" id="simpan" style="float:right;">Simpan</button>
 				</div>
 			<?php echo form_close(); ?>
@@ -165,7 +165,7 @@
 		var r = document.getElementById("pelaksanaan");
 		r.className = "collapsed";
 
-		var d = document.getElementById("nav-rab");
+		var d = document.getElementById("nav-pls-pendapatan");
 		d.className = d.className + "active";
 	}
 

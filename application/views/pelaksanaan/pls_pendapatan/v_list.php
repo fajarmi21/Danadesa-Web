@@ -107,11 +107,7 @@ $(document).ready(function() {
                 }
             },
             'colvis'
-        ],
-        columnDefs: [ {
-            targets: -1,
-            visible: false
-        } ]
+        ]
     });
 });
 </script>

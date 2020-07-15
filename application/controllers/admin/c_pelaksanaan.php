@@ -398,23 +398,27 @@ class C_pelaksanaan extends CI_Controller {
         $path = $file;
 
         $data = array(
-          'id_rka_belanja'     => $this->input->post('id_rka_belanja'),
+          'id_rka_belanja'    => $this->input->post('id_rka_belanja'),
           'tgl_detail'    => $this->input->post('tgl_detail'),
           'keterangan_detail'  => $this->input->post('barang'),
           'harga_detail'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
           'nota_detail'        => $path
         );
-        $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail'), 'id_rka_belanja' => $this->input->post('id_rka_belanja')));
-        $this->session->set_flashdata('msg',
-          '<div class="alert alert-success alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
-              </button>
-              <strong>Sukses!</strong> Berhasil diedit.
-          </div>'
-        );
+        $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail')));
+        if ($this->db->affected_rows() > 0) {
+          $this->session->set_flashdata('msg',
+            '<div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                </button>
+                <strong>Sukses!</strong> Berhasil diedit.
+            </div>'
+          );
+          redirect('admin/c_pelaksanaan/detail/'.$this->input->post('id_rka_belanja'));
+        } else {
+          var_dump($this->db->affected_rows());
+        }
       }
-      redirect('admin/c_pelaksanaan/detail/'.$this->input->post('id_rka_belanja'));
     }else redirect('c_login', 'refresh');
   }
 
@@ -537,6 +541,9 @@ class C_pelaksanaan extends CI_Controller {
         $success = file_put_contents($file, $data);
         $path = $file;
 
+        $where = array(
+        );
+
         $data = array(
           'id_rka_pendapatan'     => $this->input->post('id_rka_pendapatan'),
           'tgl_detail_p'          => $this->input->post('tgl_detail_p'),
@@ -605,23 +612,27 @@ class C_pelaksanaan extends CI_Controller {
         $path = $file;
 
         $data = array(
-          'id_rka_belanja'     => $this->input->post('id_rka_pendapatan'),
+          'id_rka_pendapatan'    => $this->input->post('id_rka_pendapatan'),
           'tgl_detail_p'    => $this->input->post('tgl_detail_p'),
           'ket_detail_p'  => $this->input->post('barang'),
           'harga_detail_p'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
-          'foto_p'                => $path
+          'foto_p'        => $path
         );
-        $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail'), 'id_rka_belanja' => $this->input->post('id_rka_belanja')));
-        $this->session->set_flashdata('msg',
-          '<div class="alert alert-success alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
-              </button>
-              <strong>Sukses!</strong> Berhasil diedit.
-          </div>'
-        );
+        $this->db->update("tbl_detail_pendapatan", $data, array('id_detail_p' => $this->input->post('id_detail')));
+        if ($this->db->affected_rows() > 0) {
+          $this->session->set_flashdata('msg',
+            '<div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                </button>
+                <strong>Sukses!</strong> Berhasil diedit.
+            </div>'
+          );
+          redirect('admin/c_pelaksanaan/detail_pnd/'.$this->input->post('id_rka_pendapatan'));
+        } else {
+          var_dump($this->db->affected_rows());
+        }
       }
-      redirect('admin/c_pelaksanaan/detail/'.$this->input->post('id_rka_belanja'));
     }else redirect('c_login', 'refresh');
   }
 
@@ -630,17 +641,30 @@ class C_pelaksanaan extends CI_Controller {
     $role = $session['hasil']->role;
     if($this->session->userdata('logged_in') AND $role == 'Administrator')
     {
-      $this->db->delete("tbl_detail", array('id_detail' => "$id"));
-      $this->session->set_flashdata('msg',
-        '
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
-            </button>
-            <strong>Sukses!</strong> Berhasil dihapus.
-        </div>'
-      );
-      redirect('admin/c_pelaksanaan/detail/'.$idp);
+      $this->db->delete("tbl_detail_pendapatan", array('id_detail_p' => "$id"));
+      if ($this->db->affected_rows() > 0) {
+        $this->session->set_flashdata('msg',
+          '<div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+              </button>
+              <strong>Sukses!</strong> Berhasil dihapus.
+          </div>'
+        );
+        redirect('admin/c_pelaksanaan/detail_pnd/'.$idp);
+      } else {
+        var_dump($this->db->affected_rows());
+      }
+      // $this->session->set_flashdata('msg',
+      //   '
+      //   <div class="alert alert-success alert-dismissible" role="alert">
+      //       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      //         <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+      //       </button>
+      //       <strong>Sukses!</strong> Berhasil dihapus.
+      //   </div>'
+      // );
+      // redirect('admin/c_pelaksanaan/detail_pnd/'.$idp);
     }
   }
 
