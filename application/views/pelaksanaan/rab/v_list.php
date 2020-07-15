@@ -17,7 +17,6 @@
      }
 </style>
 <h3><?= $page_title ?></h3>
-<hr>
 
 <!-- <a href="rab/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create</a> -->
 <!-- <a href="rab/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a> -->
