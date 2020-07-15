@@ -1,6 +1,9 @@
-<link rel="stylesheet" type="text/css" href="<?=$this->config->item('base_url');?>assetku/DataTables/datatables.min.css"/>
-<script type="text/javascript" src="<?=$this->config->item('base_url');?>assetku/DataTables/dataTables.min.js"></script>
-
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
 <style>
      .dataTable > thead > tr > th[class*="sort"]::after{display: none}
      table.dataTable thead .sorting,
@@ -73,11 +76,12 @@ echo $this->session->flashdata('msg');
       <tr>
         <th colspan="7" style="text-align:right">Total Pengeluaran :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_anggaran,0,",","."); ?>,-</span></th>
-        <th colspan="3" ></th>
+        <th colspan="2" ></th>
       </tr>
     </tfoot>
 </table>
 </div>
+
 
 <script>
 function nav_active(){
@@ -93,6 +97,21 @@ function nav_active(){
 // very simple to use!
 $(document).ready(function() {
   nav_active();
-  $('#table_id').DataTable();
+  $('#table_id').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            'colvis'
+        ],
+        columnDefs: [ {
+            targets: -1,
+            visible: false
+        } ]
+    });
 });
 </script>
