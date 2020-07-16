@@ -20,7 +20,7 @@
   Adalah pembentukan dana cadangan, hasil penjualan kekayaan desa yang dipisahkan dan penyertaan modal desa.
 </div> -->
 <a href="apb_desa/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create</a>
-<a href="apb_desa/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a>
+<!-- <a href="apb_desa/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a> -->
 <hr>
 <?php
 echo $this->session->flashdata('msg');
