@@ -41,7 +41,7 @@
 				<div class="form-group">
 					 <label  class="col-md-4 control-label" for="nama_kegiatan">Ketua Kegiatan</label>
 						<div class="col-md-8">
-						<input type="text" class="form-control input-md" name="nama_kegiatan" value="<?php echo $v_kegiatan->nama_kegiatan; ?>" id="nama_kegiatan" size="100"  readonly/>
+						<input type="text" class="form-control input-md" name="nama_kegiatan" value="<?php echo $hasil->nama_kegiatan; ?>" id="nama_kegiatan" size="100"  readonly/>
 						 <span>&nbsp;</span>
  						</div>
 				</div>
