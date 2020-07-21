@@ -95,12 +95,18 @@ class Pendapatan extends CI_Controller {
         if(!$tgl_detail_p){
           echo json_encode(array('message'=>'required file is empty.'));
         }else{
+            $dir = 'uploads/foto/';
+            
+            $newname = $dir . date('Ymdhms') . $this->input->post('id_rka_belanja') . '.jpg';
+            
+            move_uploaded_file($imagename, $newname);
 
             $data = array(
                 'id_rka_pendapatan'    => $id_rka_pendapatan,
                 'tgl_detail_p'         => $tgl_detail_p,
                 'ket_detail_p'         => $ket_detail_p,
-                'harga_detail_p'       => $harga_detail_p
+                'harga_detail_p'       => $harga_detail_p,
+                'foto_p'               => $newname
             );
           
             $this->db->trans_begin();
@@ -145,18 +151,18 @@ class Pendapatan extends CI_Controller {
         $ket_detail_a = $_POST['ket_detail_a'];
         $data['harga_detail_p'] = $_POST['harga_detail_p'];
 
-        // if($_POST['imagename'] != "kosong"){
-        //     $imagename = $_FILES['imagename']['tmp_name'];
-        //     $dir = 'uploads/detail/';
+        if($_POST['imagename'] != "kosong"){
+            $imagename = $_FILES['imagename']['tmp_name'];
+            $dir = 'uploads/foto/';
             
-        //     $newname = $dir . date('Ymdhms') . $this->input->post('id_rka_belanja') . '.jpg';
+            $newname = $dir . date('Ymdhms') . $id_rka_pendapatan . '.jpg';
             
-        //     move_uploaded_file($imagename, $newname);
-        //     $data['nota_detail'] = $newname;
-        // }
+            move_uploaded_file($imagename, $newname);
+            $data['foto_p'] = $newname;
+        }
           
         // $this->db->trans_begin();
-        $this->db->update("tbl_detail_pendapatan", $data, array('ket_detail_p' => $ket_detail_p));
+        $this->db->update("tbl_detail_pendapatan", $data, array('ket_detail_p' => $ket_detail_a));
         // $this->db->trans_complete();
         if ($this->db->affected_rows() > 0) {
             // $this->db->trans_commit();
