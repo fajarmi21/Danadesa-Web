@@ -37,7 +37,7 @@ echo $this->session->flashdata('msg');
             <th style="text-align: center"  rowspan="2" id="rowspan2">Tahun</th>
             <th style="text-align: center"  colspan="3">Rekening</th>
             <th style="text-align: center"  colspan="3">Anggaran</th>
-            <th style="text-align: center"  rowspan="2" id="rowspan2">Aksi</th>
+            <!-- <th style="text-align: center"  rowspan="2" id="rowspan2">Aksi</th> -->
        </tr>
        <tr>
             <th style="text-align: center" >Jenis Bank</th>
@@ -64,10 +64,10 @@ echo $this->session->flashdata('msg');
           <td><?php echo $baris->jumlah; ?></td>
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->anggaran, 0,",","."); ?>,-</span></td>
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->harga, 0,",","."); ?>,-</span></td>
-          <td align="center">
+          <!-- <td align="center">
             <a href="edit_apb_desa/<?php echo $baris->id_apb_desa; ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
-            <!-- <a href="hapus_apb_desa/<?php echo $baris->id_apb_desa; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a> -->
-          </td>
+            <a href="hapus_apb_desa/<?php echo $baris->id_apb_desa; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a>
+          </td> -->
         </tr>
       <?php
       $total_harga    += $baris->harga;
@@ -76,7 +76,7 @@ echo $this->session->flashdata('msg');
     <tfoot>
       <tr>
         <th colspan="8" style="text-align:right">Total :</th>
-        <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_harga,0,",","."); ?>,-</span></th>
+        <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-8px;"><?php echo number_format($total_harga,0,",","."); ?>,-</span></th>
         <th></th>
       </tr>
     </tfoot>

@@ -9,7 +9,7 @@ class Cadangan extends CI_Controller {
 	public function index() 
 	{
         $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
-        $this->db->join('tbl_bank', 'tbl_bank.id_bank=tbl_apb_desa.id_bank');
+        $this->db->join('tbl_bank', 'tbl_bank.id_bank=tbl_apb_desa.id_bank', 'left');
         $sql = $this->db->get('tbl_apb_desa')->result();
         echo json_encode($sql);
 
@@ -19,7 +19,7 @@ class Cadangan extends CI_Controller {
 	public function AdminCadangan()
 	{ 
         $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
-        $this->db->join('tbl_bank', 'tbl_bank.id_bank=tbl_apb_desa.id_bank');
+        $this->db->join('tbl_bank', 'tbl_bank.id_bank=tbl_apb_desa.id_bank', 'left');
         $this->db->where(array('nama_kegiatan'=>$this->input->post('nama_kegiatan')));
         $sql = $this->db->get('tbl_apb_desa')->result();
         echo json_encode($sql);

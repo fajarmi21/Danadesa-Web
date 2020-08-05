@@ -721,7 +721,7 @@ class C_pelaksanaan extends CI_Controller {
             if($this->session->userdata('logged_in') AND $role == 'Administrator')
             {
                     if (isset($_POST['simpan'])) {
-                      $tahun = $this->input->post('tahun');
+                      $tahun = $this->input->post('tahun'); 
                       if ($this->db->get_where("tbl_apb_desa", array('tahun' => "$tahun"))->num_rows() != 0) {
                         $this->session->set_flashdata('msg',
                           '
@@ -765,10 +765,10 @@ class C_pelaksanaan extends CI_Controller {
                 $role = $session['hasil']->role;
                 if($this->session->userdata('logged_in') AND $role == 'Administrator')
                 {
+                  $data['hasil'] = $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
                   $data['hasil'] = $this->db->get_where("tbl_apb_desa", array('id_apb_desa' => "$id"))->row();
                   $data['page_title'] = 'EDIT DANA CADANGAN';
-                  $this->db->order_by('nama_kegiatan', 'ASC');
-                  $data['v_kegiatan'] = $this->db->get('tbl_kegiatan');
+                  
                   $this->db->order_by('nama_bank', 'ASC');
                   $data['v_bank'] = $this->db->get('tbl_bank');
                   $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
@@ -786,13 +786,13 @@ class C_pelaksanaan extends CI_Controller {
               if($this->session->userdata('logged_in') AND $role == 'Administrator')
               {
                 if (isset($_POST['simpan'])) {
-                // $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
+                $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
                 $tahun = $this->input->post('tahun');
-                $id = $this->input->post('id_apb_desa');
+                $id = $this->input->post('id');
                     $data = array(
                           'tahun'              => $this->input->post('tahun'),
                           'nama_apb'           => $this->input->post('nama_apb'),
-                          'id_kegiatan'        => $this->input->post('id_kegiatan'),
+                          // 'id_kegiatan'        => $this->input->post('id_kegiatan'),
                           'jumlah'             => $this->input->post('jumlah'),
                           'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
                           'tgl_apb_desa'       => $this->input->post('tgl_apb_desa'),
@@ -803,7 +803,7 @@ class C_pelaksanaan extends CI_Controller {
                           'satuan'             => $this->input->post('satuan'),
                           'harga'              => preg_replace('/[Rp. ]/', '', $this->input->post('harga'))
                     );
-                    $this->db->update("tbl_apb_desa", $data);
+                    $this->db->update("tbl_apb_desa", $data, array('id_apb_desa' => "$id"));
                     $this->session->set_flashdata('msg',
                       '
                       <div class="alert alert-success alert-dismissible" role="alert">

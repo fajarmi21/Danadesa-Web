@@ -16,7 +16,7 @@
         <div class="col-md-2" style="margin-left: -15px;">
           <?php echo form_open('admin/c_pelaksanaan/add_detail_pnd'); ?>
             <input type="hidden" name="id_rka_pendapatan" id="id_rka_pendapatan" value="<?php echo $id;?>" required/>
-            <button type="submit" class="btn btn-primary" name="simpan" id="simpan"><i class="glyphicon glyphicon-plus"></i> Create</button>
+            <!-- <button type="submit" class="btn btn-primary" name="simpan" id="simpan"><i class="glyphicon glyphicon-plus"></i> Create</button> -->
           <?php echo form_close(); ?>
         </div>
         <!-- <div class="col-md-2" style="margin-left: -45px;">
@@ -40,23 +40,24 @@
                           <th width="10%;">Keterangan</th>
                           <th width="5%;">Pendapatan</th>
                           <th width="5%;">Foto</th>
-                          <th width="8%;">Aksi</th>
+                          <!-- <th width="8%;">Aksi</th> -->
                       </tr>
                   </thead>
                   <tbody>
                     <?php
+                      $no=1;
                       $total_harga_detail  = 0;
                       foreach($pnd->result() as $baris){?>
                       <tr>
-                        <td><?= $baris->id_detail_p; ?></td>
+                        <td><?= $no++; ?></td>
                         <td><?= $baris->tgl_detail_p; ?></td>
                         <td><?= $baris->ket_detail_p; ?></td>
                         <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($baris->harga_detail_p,0,",","."); ?>,-</span></td>
                         <td style="text-align: center;"><img src="<?php echo base_url().$baris->foto_p; ?>" width="50" height="50"/></td>
-                        <td>
+                        <!-- <td>
                           <a href="<?= base_url() ?>admin/c_pelaksanaan/edit_detail_pnd/<?php echo $baris->id_detail_p; ?>/<?php echo $id;?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
                           <a href="<?= base_url() ?>admin/c_pelaksanaan/hapus_detail_pnd/<?php echo $baris->id_detail_p; ?>/<?php echo $id;?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a>
-                        </td>
+                        </td> -->
                       </tr>
                     <?php $total_harga_detail += $baris->harga_detail_p; } ?>
                   </tbody>

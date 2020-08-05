@@ -29,6 +29,9 @@ class C_admin extends CI_Controller {
 		$data['dukse'] = $this->m_grafik->getDukse();
 		$data['ngadirejo'] = $this->m_grafik->getNgadirejo();
 		$data['tahun'] = $this->m_grafik->getTahun();
+		$data['v_pendapatan'] = $this->db->query("SELECT SUM(jumlah) as jml FROM tbl_rka_pendapatan")->row('jml');
+		$data['v_pengeluaran'] = $this->db->query("SELECT SUM(anggaran) as ang FROM tbl_rka_belanja")->row('ang');
+		$data['danadesa'] = $data['v_pendapatan'] - $data['v_pengeluaran'];
 
 
 

@@ -11,7 +11,8 @@
 		<div class="col-md-12">
 			<a href="<?php echo site_url('admin/c_dusun/');?>">
 				<button type="button" class="btn btn-success"><i class="fa fa-eye fa-fw"></i> Lihat Data Dusun</button>
-			</a>
+      </a>
+      <h2>Saldo Dana Desa : Rp.<b><?php echo number_format($danadesa,0,",",".") ?></b></h2>
 		</div>
 	</div>
 	<br>
@@ -157,7 +158,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Anggaran Belanja Dusun',
+                     labelString: 'Anggaran Pengeluaran Dusun',
                      fontSize: 20 
                   }
             }]            
@@ -282,7 +283,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Anggaran Belanja Desa',
+                     labelString: 'Anggaran Pengeluaran Desa',
                      fontSize: 20 
                   }
             }]            
