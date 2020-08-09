@@ -82,6 +82,17 @@ class C_perencanaan extends CI_Controller {
       $role = $session['hasil']->role;
       if($this->session->userdata('logged_in') AND $role == 'Administrator')
       {
+            $newfile = $this->input->post('image-data', TRUE);
+    
+            define('UPLOAD_DIR', 'uploads/');
+            $img = $newfile;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = UPLOAD_DIR . str_replace(' ', '', $this->input->post('pelaksana_kegiatan')) . $this->input->post('tgl_rka_belanja') . '.jpg';
+            $success = file_put_contents($file, $data);
+            $path = $file;
+
             	if (isset($_POST['simpan'])) {
                   $data = array(
                     'id_bidang'          => $this->input->post('id_bidang'),
@@ -92,7 +103,9 @@ class C_perencanaan extends CI_Controller {
                     'id_dusun'           => $this->input->post('id_dusun'),
                     'tgl_rka_belanja'    => $this->input->post('tgl_rka_belanja'),
                     'selesai'            => $this->input->post('selesai'),
-                    'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran'))
+                    'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+                    'image'           => $path
+                    
           				);
 
                     $this->db->insert("tbl_rka_belanja", $data);
@@ -151,16 +164,14 @@ class C_perencanaan extends CI_Controller {
 
              $newfile = $this->input->post('image-data', TRUE);
     
-             define('UPLOAD_DIR', 'uploads/');
-             $img = $newfile;
-             $img = str_replace('data:image/jpeg;base64,', '', $img);
-             $img = str_replace(' ', '+', $img);
-             $data = base64_decode($img);
-             $file = UPLOAD_DIR . $id . '.jpg';
-             $success = file_put_contents($file, $data);
-    
-             $path = $file;
-            //  var_dump($path);
+            define('UPLOAD_DIR', 'uploads/');
+            $img = $newfile;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = UPLOAD_DIR . str_replace(' ', '', $this->input->post('pelaksana_kegiatan')) . $this->input->post('tgl_rka_belanja') . '.jpg';
+            $success = file_put_contents($file, $data);
+            $path = $file;
             
               $data = array(
                 'id_bidang'          => $this->input->post('id_bidang'),
@@ -172,7 +183,8 @@ class C_perencanaan extends CI_Controller {
                 'id_dusun'           => $this->input->post('id_dusun'),
                 'tgl_rka_belanja'    => $this->input->post('tgl_rka_belanja'),
                 'selesai'            => $this->input->post('selesai'),
-                'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran'))
+                'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+                'image'              => $path
               );
               $this->db->update("tbl_rka_belanja", $data, array('id_rka_belanja' => "$id"));
               $this->session->set_flashdata('msg',
@@ -272,6 +284,20 @@ class C_perencanaan extends CI_Controller {
         $role = $session['hasil']->role;
         if($this->session->userdata('logged_in') AND $role == 'Administrator')
         {
+
+          $newfile = $this->input->post('image-data', TRUE);
+    
+            define('UPLOAD_DIR', 'uploads/pendapatan/');
+            $img = $newfile;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = UPLOAD_DIR . str_replace(' ', '', $this->input->post('lokasi_kegiatan')) . $this->input->post('tgl_pembahasan') . '.jpg';
+            $success = file_put_contents($file, $data);
+            $path = $file;
+
+            
+
                 if (isset($_POST['simpan'])) {
                     $data = array(
                       'kelompok'           => $this->input->post('kelompok'),
@@ -280,7 +306,9 @@ class C_perencanaan extends CI_Controller {
                       'jenis'              => $this->input->post('jenis'),
                       'lokasi_kegiatan'    => $this->input->post('lokasi_kegiatan'),
                       'jumlah'             => preg_replace('/[Rp. ]/', '', $this->input->post('jumlah')),
-                      'tgl_pembahasan'     => $this->input->post('tgl_pembahasan')
+                      'tgl_pembahasan'     => $this->input->post('tgl_pembahasan'),
+                      'tgl_rka_pendapatan'     => $this->input->post('tgl_rka_pendapatan'),
+                      'poto'               => $path
                     );
                     $this->db->insert("tbl_rka_pendapatan", $data);
                     $this->session->set_flashdata('msg',
@@ -322,6 +350,18 @@ class C_perencanaan extends CI_Controller {
           $role = $session['hasil']->role;
           if($this->session->userdata('logged_in') AND $role == 'Administrator')
           {
+
+            $newfile = $this->input->post('image-data', TRUE);
+    
+            define('UPLOAD_DIR', 'uploads/pendapatan/');
+            $img = $newfile;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = UPLOAD_DIR . str_replace(' ', '', $this->input->post('lokasi_kegiatan')) . $this->input->post('tgl_pembahasan') . '.jpg';
+            $success = file_put_contents($file, $data);
+            $path = $file;
+
             if (isset($_POST['simpan'])) {
               $id = $this->input->post('id');
                 $data = array(
@@ -331,7 +371,9 @@ class C_perencanaan extends CI_Controller {
                   'jenis'              => $this->input->post('jenis'),
                   'lokasi_kegiatan'    => $this->input->post('lokasi_kegiatan'),
                   'jumlah'             => preg_replace('/[Rp. ]/', '', $this->input->post('jumlah')),
-                  'tgl_pembahasan'     => $this->input->post('tgl_pembahasan')
+                  'tgl_pembahasan'     => $this->input->post('tgl_pembahasan'),
+                  'tgl_rka_pendapatan'     => $this->input->post('tgl_rka_pendapatan'),
+                  'poto'               => $path
                 );
                 $this->db->update("tbl_rka_pendapatan", $data, array('id_rka_pendapatan' => "$id"));
                 $this->session->set_flashdata('msg',
@@ -704,7 +746,7 @@ class C_perencanaan extends CI_Controller {
                 redirect('admin/c_perencanaan/apb_desa');
 
               }
-            }
+            } 
 
             function hapus_apb_desa($id='') {
               $session['hasil'] = $this->session->userdata('logged_in');

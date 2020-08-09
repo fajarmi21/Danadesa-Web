@@ -25,7 +25,7 @@
 
 			         <label  class="col-md-4 control-label" for="nik_kegiatan">NIK</label>
 			        <div class="col-md-8">
-			         <input type="number" class="form-control input-md" name="nik_kegiatan" id="nik_kegiatan" size="100" value="<?php echo $hasil->nik_kegiatan; ?>" placeholder="NIK" required/>
+			         <input type="number" class="form-control input-md" name="nik_kegiatan" id="nik_kegiatan" onKeyPress="if(this.value.length==16) return false;" size="100" value="<?php echo $hasil->nik_kegiatan; ?>" placeholder="NIK" required/>
 			         <span class="help-block">
 					<?php echo form_error('username', '<p class="field_error">','</p>')?>
 			        </span>

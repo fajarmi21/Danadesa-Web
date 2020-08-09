@@ -9,7 +9,7 @@
 <div class="col-md-8">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><b>Form Tambah</b> </h3>
+			<h3 class="panel-title"><b>Form Edit</b> </h3>
 		</div>
 		<div class="panel-body">
 			<?php $flashmessage = $this->session->flashdata('exist');
@@ -18,14 +18,14 @@
 			$this->db->where('tahun', $tahun);
 			?>
 
-			<?php echo form_open('admin/c_pelaksanaan/simpan_detail'); ?>
+			<?php echo form_open('admin/c_pelaksanaan/update_detail'); ?>
 				<input type="hidden" name="id_detail" id="id_detail" value="<?php echo $id_detail; ?>" required />
 				<input type="hidden" name="id_rka_belanja" id="id_rka_belanja" value="<?php echo $id; ?>" required />
 				<input type="hidden" name="tgl_detail" id="tgl_detail" value="<?php echo date('Y-m-d'); ?>" required />
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="barang">Barang</label>
 					<div class="col-md-8">
-						<textarea name="barang" id="barang" rows="5" cols="80" placeholder="Barang" required><?php echo $detail->keterangan_detail; ?></textarea>
+						<textarea name="barang" id="barang" rows="5" cols="80" placeholder="Barang" value="<?php echo $detail->keterangan_detail; ?>" required><?php echo $detail->keterangan_detail; ?></textarea>
 						<span>&nbsp;</span>
 					</div>
 				</div>

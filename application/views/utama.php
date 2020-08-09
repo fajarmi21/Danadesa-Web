@@ -117,10 +117,9 @@
 							<i class="fa fa-caret-down"> </i>
 						</a>
 						<ul class="dropdown-menu dropdown-user">
-							<li><a href="<?php echo site_url('c_changePass');?>"><i class="fa fa-pencil fa-fw"></i> Ubah Kata Sandi</a>
-							</li>
+							
 
-						<li class="divider"></li>
+						<!-- <li class="divider"></li> -->
 							<li><a href="<?php echo site_url('c_login/logout');?>"><i class="fa fa-sign-out fa-fw"></i> Keluar</a>
 						</li>
 						</ul>

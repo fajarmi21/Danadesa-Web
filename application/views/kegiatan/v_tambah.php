@@ -9,7 +9,9 @@
 	  <div class="panel-body">
 
 			<?php $flashmessage = $this->session->flashdata('exist');
-				echo ! empty($flashmessage) ? '<p class="message">' . $flashmessage . '</p>': ''; ?>
+				echo ! empty($flashmessage) ? '<p class="message">' . $flashmessage . '</p>': ''; 
+				// $this->db->where('user_kegiatan', $tahun);
+				?>
 
 			<?php echo form_open('admin/c_kegiatan/simpan'); ?>
 
@@ -25,7 +27,7 @@
 
 			        <label  class="col-md-4 control-label" for="nik_kegiatan">NIK</label>
 			        <div class="col-md-8">
-			         <input type="number" class="form-control input-md" name="nik_kegiatan" id="nik_kegiatan" size="100" placeholder="NIK" required/>
+			         <input type="number" class="form-control input-md" name="nik_kegiatan" id="nik_kegiatan" onKeyPress="if(this.value.length==16) return false;" size="100" placeholder="NIK" required/>
 			         <span class="help-block">
 					<?php echo form_error('username', '<p class="field_error">','</p>')?>
 			        </span>
@@ -143,7 +145,7 @@
 	$(function() {
 		$('.image-editor').cropit({
 			imageState: {
-				src: '<?= base_url() . $hasil->image ?>'
+				src: '<?= base_url() . $hasil->foto_ketua ?>'
 			}
 		});
 

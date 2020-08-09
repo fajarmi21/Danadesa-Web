@@ -1,5 +1,9 @@
-<link rel="stylesheet" type="text/css" href="<?=$this->config->item('base_url');?>assetku/DataTables/datatables.min.css"/>
-<script type="text/javascript" src="<?=$this->config->item('base_url');?>assetku/DataTables/dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
 
 <style>
      .dataTable > thead > tr > th[class*="sort"]::after{display: none}
@@ -14,7 +18,6 @@
      }
 </style>
 <h3><?= $page_title ?></h3>
-<hr>
 <!-- 
 <a href="rka_pendapatan/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create</a>
 <a href="rka_pendapatan/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a> -->
@@ -32,7 +35,8 @@ echo $this->session->flashdata('msg');
             <th style="text-align: center">Pelaksana Kegiatan</th>
             <th style="text-align: center">Kelompok</th>
             <th style="text-align: center">Lokasi Kegiatan</th>
-            <th style="text-align: center">Tanggal Pembahasan</th>
+            <th style="text-align: center">Rencana Dimulai</th>
+            <th style="text-align: center">Rencana Selesai</th>
             <th style="text-align: center">Rencana Pendapatan</th>
             <th style="text-align: center">Pendapatan</th>
             <th style="text-align: center">Aksi</th>
@@ -46,11 +50,12 @@ echo $this->session->flashdata('msg');
         <tr>
           <th><?php echo $no++; ?>.</th>
           <td><?php echo $baris->jenis; ?></td>
-          <td><?php echo $baris->tahun_pendapatan; ?></td>
+          <td><?php echo $baris->tahun; ?></td>
           <td><?php echo $baris->nama_kegiatan; ?></td>
           <td><?php echo $baris->kelompok; ?></td>
           <td><?php echo $baris->lokasi_kegiatan; ?></td>
           <td><?php echo $this->page_model->tgl_id("$baris->tgl_pembahasan"); ?></td>
+          <td><?php echo $this->page_model->tgl_id("$baris->tgl_rka_pendapatan"); ?></td>
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->jumlah, 0,",","."); ?>,-</span></td>
           <td>Rp.<span style="float:right;">
           <?php
@@ -70,7 +75,7 @@ echo $this->session->flashdata('msg');
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="8" style="text-align:right">Total :</th>
+        <th colspan="9" style="text-align:right">Total :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_jumlah,0,",","."); ?>,-</span></th>
         <th colspan="2"></th>
       </tr>
@@ -92,6 +97,18 @@ function nav_active(){
 // very simple to use!
 $(document).ready(function() {
   nav_active();
-  $('#table_id').DataTable();
+  $('#table_id').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                // class: "btn btn-warning"
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            'colvis'
+        ]
+    });
 });
 </script>

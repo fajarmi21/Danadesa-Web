@@ -17,7 +17,7 @@
 <hr>
 
 <a href="rka_pendapatan/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create</a>
-<a href="rka_pendapatan/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a>
+<!-- <a href="rka_pendapatan/print" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Print</a> -->
 <hr>
 <?php
 echo $this->session->flashdata('msg');
@@ -26,15 +26,16 @@ echo $this->session->flashdata('msg');
 <table id="table_id" class="table table-bordered table-striped display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th width="1%" rowspan="2">No.</th>
-            <th width="16%" rowspan="2">Nama Pendapatan</th>
-            <th width="5%" rowspan="2">Tahun</th>
-            <th width="10%" rowspan="2">Pelaksana Kegiatan</th>
-            <th width="15%" rowspan="2">Kelompok</th>
-            <th width="17%" rowspan="2">Lokasi Pendapatan</th>
-            <th width="15%" rowspan="2">Tanggal Pembahasan</th>
-            <th width="12%" rowspan="2">Rencana Pendapatan</th>
-            <th width="15%" rowspan="2">Aksi</th>
+            <th width="1%" style="text-align: center;">No.</th>
+            <th width="16%" style="text-align: center;">Nama Pendapatan</th>
+            <th width="5%" style="text-align: center;">Tahun</th>
+            <th width="10%" style="text-align: center;">Pelaksana Kegiatan</th>
+            <th width="15%" style="text-align: center;">Kelompok</th>
+            <th width="12%" style="text-align: center;">Lokasi Pendapatan</th>
+            <th width="10%" style="text-align: center;">Rencana Dimulai</th>
+            <th width="10%" style="text-align: center;">Rencana Selesai</th>
+            <th width="12%" style="text-align: center;">Pendapatan</th>
+            <th width="15%" style="text-align: center;">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +51,7 @@ echo $this->session->flashdata('msg');
           <td><?php echo $baris->kelompok; ?></td>
           <td><?php echo $baris->lokasi_kegiatan; ?></td>
           <td><?php echo $this->page_model->tgl_id("$baris->tgl_pembahasan"); ?></td>
+          <td><?php echo $this->page_model->tgl_id("$baris->tgl_rka_pendapatan"); ?></td>
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->jumlah, 0,",","."); ?>,-</span></td>
           <td align="center">
             <a href="edit_rka_pendapatan/<?php echo $baris->id_rka_pendapatan; ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
@@ -62,7 +64,7 @@ echo $this->session->flashdata('msg');
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="6" style="text-align:right">Total :</th>
+        <th colspan="8" style="text-align:right">Total :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($total_jumlah,0,",","."); ?>,-</span></th>
         <th colspan="2"></th>
       </tr>

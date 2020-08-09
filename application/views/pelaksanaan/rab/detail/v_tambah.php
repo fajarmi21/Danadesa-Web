@@ -20,18 +20,25 @@
 
 			<?php echo form_open('admin/c_pelaksanaan/simpan_detail'); ?>
 				<input type="hidden" name="id_rka_belanja" id="id_rka_belanja" value="<?php echo $id; ?>" required />
-				<input type="hidden" name="tgl_detail" id="tgl_detail" value="<?php echo date('Y-m-d'); ?>" required />
+				<!-- <input type="hidden" name="tgl_detail" id="tgl_detail" value="<?php echo date('Y-m-d'); ?>" required /> -->
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="barang">Barang</label>
+					 <label  class="col-md-4 control-label" for="tgl_detail">Tanggal</label>
+					 <div class="col-md-8">
+						 <input type="text" class="form-control input-md" name="tgl_detail" id="tgl_detail" value="<?php echo date('d-m-Y'); ?>" size="10" placeholder="Tanggal" required/>
+						 <span>&nbsp;</span>
+ 						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="barang">Deskripsi Pengeluaran</label>
 					<div class="col-md-8">
-						<textarea name="barang" id="barang" rows="3" cols="80" class="form-control" placeholder="Barang"></textarea>
+						<textarea name="barang" id="barang" rows="3" cols="80" class="form-control" placeholder="Deskripsi Pengeluaran"></textarea>
 						<span>&nbsp;</span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="anggaran">Harga</label>
+					<label class="col-md-4 control-label" for="anggaran">Biaya</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control input-md" name="anggaran" id="anggaran" size="100" placeholder="Anggaran" required />
+						<input type="text" class="form-control input-md" name="anggaran" id="anggaran" size="100" placeholder="Biaya" required />
 						<span>&nbsp;</span>
 					</div>
 				</div>
@@ -179,5 +186,6 @@
 		nav_active();
 		document.getElementById("lihat").style.display = "block";
 		$('#anggaran').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
+		$( "#tgl_detail" ).datepicker({ dateFormat: 'dd-mm-yy' });
 	});
 </script>

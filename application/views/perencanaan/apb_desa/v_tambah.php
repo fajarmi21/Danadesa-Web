@@ -6,7 +6,7 @@
 <h2><?= $page_title ?></h2>
 
 <hr>
-<div class="col-md-2"></div>
+<div class="col-md-2"></div> 
 <div class="col-md-8">
 	<div class="panel panel-default">
 	  <div class="panel-heading">

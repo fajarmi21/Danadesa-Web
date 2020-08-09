@@ -42,6 +42,21 @@
 						<span>&nbsp;</span>
 					</div>
 				</div>
+				<div class="form-group">
+					<div class="image-editor ">
+						<label class="col-md-4 control-label" for="bukti">Foto</label>
+						<div class="col-md-8">
+							<div id="lihat">
+								<div class="cropit-image-preview"></div>
+								<input type="range" class="cropit-image-zoom-input" style="width: 200px">
+								<br>
+							</div>
+							<input type="file" id="image" class="cropit-image-input custom" accept="image/*">
+							<input type="hidden" name="image-data" class="hidden-image-data" />
+							<span>&nbsp;</span>
+						</div>
+					</div>
+				</div>
 				
 				<hr>
 				<div class="form-group">
@@ -172,6 +187,6 @@
 		nav_active();
 		// document.getElementById("lihat").style.display = "block";
   		$('#harga_detail_p').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
-  		$( "#tgl_pembahasan" ).datepicker({ dateFormat: 'dd-mm-yy' });
+  		$( "#tgl_detail_p" ).datepicker({ dateFormat: 'dd-mm-yy' });
 	});
 </script>

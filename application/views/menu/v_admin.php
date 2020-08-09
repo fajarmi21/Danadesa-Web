@@ -93,23 +93,6 @@
             <li>
            <a class="" href="<?php echo site_url('admin/c_kegiatan/');?>" id="a-po" class="" ><i class="fa fa-user fa-fw"></i> Ketua Kegiatan</a>
            </li>
-            <li class="dropdownmenu">
-            <a id="a-lap" class="collapsed" data-toggle="collapse" href="#lap">
-            <i class="fa fa-print fa-fw"></i> Laporan <span class="fa arrow"></span></a>
-            <div id="lap" class="collapse">
-              <ul id="" class="nav nav-pills nav-stacked nav-second-level">
-                <li id="nav-lra" class="">
-                  <a href="<?php echo site_url('admin/c_lap/lra');?>" >Laporan Rencana Anggaran</a>
-                </li>
-                </li>
-                <li id="nav-lad" class="">
-                  <a href="<?php echo site_url('admin/c_lap/lad');?>" >Pembiayaan Desa</a>
-                </li>
-              </ul>
-            </div>
-            </li>
-
-					</ul>
         </div>
                 <!-- /.sidebar-collapse -->
 

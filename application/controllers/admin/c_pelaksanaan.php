@@ -398,23 +398,27 @@ class C_pelaksanaan extends CI_Controller {
         $path = $file;
 
         $data = array(
-          'id_rka_belanja'     => $this->input->post('id_rka_belanja'),
+          'id_rka_belanja'    => $this->input->post('id_rka_belanja'),
           'tgl_detail'    => $this->input->post('tgl_detail'),
           'keterangan_detail'  => $this->input->post('barang'),
           'harga_detail'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
           'nota_detail'        => $path
         );
-        $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail'), 'id_rka_belanja' => $this->input->post('id_rka_belanja')));
-        $this->session->set_flashdata('msg',
-          '<div class="alert alert-success alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
-              </button>
-              <strong>Sukses!</strong> Berhasil diedit.
-          </div>'
-        );
+        $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail')));
+        if ($this->db->affected_rows() > 0) {
+          $this->session->set_flashdata('msg',
+            '<div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                </button>
+                <strong>Sukses!</strong> Berhasil diedit.
+            </div>'
+          );
+          redirect('admin/c_pelaksanaan/detail/'.$this->input->post('id_rka_belanja'));
+        } else {
+          var_dump($this->db->affected_rows());
+        }
       }
-      redirect('admin/c_pelaksanaan/detail/'.$this->input->post('id_rka_belanja'));
     }else redirect('c_login', 'refresh');
   }
 
@@ -528,7 +532,7 @@ class C_pelaksanaan extends CI_Controller {
       if (isset($_POST['simpan'])) {
         $newfile = $this->input->post('image-data', TRUE);
     
-        define('UPLOAD_DIR', 'uploads/nota/');
+        define('UPLOAD_DIR', 'uploads/foto/');
         $img = $newfile;
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -537,11 +541,15 @@ class C_pelaksanaan extends CI_Controller {
         $success = file_put_contents($file, $data);
         $path = $file;
 
+        $where = array(
+        );
+
         $data = array(
           'id_rka_pendapatan'     => $this->input->post('id_rka_pendapatan'),
           'tgl_detail_p'          => $this->input->post('tgl_detail_p'),
           'ket_detail_p'          => $this->input->post('ket_detail_p'),
-          'harga_detail_p'        => preg_replace('/[Rp. ]/', '', $this->input->post('harga_detail_p'))
+          'harga_detail_p'        => preg_replace('/[Rp. ]/', '', $this->input->post('harga_detail_p')),
+          'foto_p'                => $path
         );
         $this->db->insert("tbl_detail_pendapatan", $data);
         $this->session->set_flashdata('msg',
@@ -565,10 +573,10 @@ class C_pelaksanaan extends CI_Controller {
     {
       // var_dump($this->input->post('id_pelaksanaan'));
       // echo $this->input->post('id_pelaksanaan');
-      $data['detail'] = $this->db->get_where("tbl_detail", array('id_detail' => "$id"))->row();
-      $data['page_title'] = 'Rencana Anggaran Biaya';
-      $this->db->order_by('id_rka_belanja', 'ASC');
-      $data['v_rka_belanja'] = $this->db->get('tbl_rka_belanja');
+      $data['detail'] = $this->db->get_where("tbl_detail_pendapatan", array('id_detail_p' => "$id"))->row();
+      $data['page_title'] = 'Edit Pelaksanaan Pendapatan';
+      $this->db->order_by('id_rka_pendapatan', 'ASC');
+      $data['v_rka_belanja'] = $this->db->get('tbl_rka_pendapatan');
       $this->db->order_by('nama_bidang', 'ASC');
       $data['v_bidang'] = $this->db->get('tbl_bidang');
       $this->db->order_by('nama_program', 'ASC');
@@ -580,7 +588,7 @@ class C_pelaksanaan extends CI_Controller {
       $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
       $data['id'] = $idp;
       $data['id_detail'] = $id;
-      $data['content'] = $this->load->view('pelaksanaan/rab/detail/v_ubah', $data, TRUE);
+      $data['content'] = $this->load->view('pelaksanaan/pls_pendapatan/pnd_detail/v_ubah', $data, TRUE);
       $this->load->view('utama', $data);
     }else redirect('c_login', 'refresh');
   }
@@ -594,7 +602,7 @@ class C_pelaksanaan extends CI_Controller {
         $id = $this->input->post('id');
         $newfile = $this->input->post('image-data', TRUE);
     
-        define('UPLOAD_DIR', 'uploads/nota/');
+        define('UPLOAD_DIR', 'uploads/foto/');
         $img = $newfile;
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -604,23 +612,27 @@ class C_pelaksanaan extends CI_Controller {
         $path = $file;
 
         $data = array(
-          'id_rka_belanja'     => $this->input->post('id_rka_belanja'),
-          'tgl_detail'    => $this->input->post('tgl_detail'),
-          'keterangan_detail'  => $this->input->post('barang'),
-          'harga_detail'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
-          'nota_detail'        => $path
+          'id_rka_pendapatan'    => $this->input->post('id_rka_pendapatan'),
+          'tgl_detail_p'    => $this->input->post('tgl_detail_p'),
+          'ket_detail_p'  => $this->input->post('barang'),
+          'harga_detail_p'       => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
+          'foto_p'        => $path
         );
-        $this->db->update("tbl_detail", $data, array('id_detail' => $this->input->post('id_detail'), 'id_rka_belanja' => $this->input->post('id_rka_belanja')));
-        $this->session->set_flashdata('msg',
-          '<div class="alert alert-success alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
-              </button>
-              <strong>Sukses!</strong> Berhasil diedit.
-          </div>'
-        );
+        $this->db->update("tbl_detail_pendapatan", $data, array('id_detail_p' => $this->input->post('id_detail')));
+        if ($this->db->affected_rows() > 0) {
+          $this->session->set_flashdata('msg',
+            '<div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                </button>
+                <strong>Sukses!</strong> Berhasil diedit.
+            </div>'
+          );
+          redirect('admin/c_pelaksanaan/detail_pnd/'.$this->input->post('id_rka_pendapatan'));
+        } else {
+          var_dump($this->db->affected_rows());
+        }
       }
-      redirect('admin/c_pelaksanaan/detail/'.$this->input->post('id_rka_belanja'));
     }else redirect('c_login', 'refresh');
   }
 
@@ -629,17 +641,30 @@ class C_pelaksanaan extends CI_Controller {
     $role = $session['hasil']->role;
     if($this->session->userdata('logged_in') AND $role == 'Administrator')
     {
-      $this->db->delete("tbl_detail", array('id_detail' => "$id"));
-      $this->session->set_flashdata('msg',
-        '
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
-            </button>
-            <strong>Sukses!</strong> Berhasil dihapus.
-        </div>'
-      );
-      redirect('admin/c_pelaksanaan/detail/'.$idp);
+      $this->db->delete("tbl_detail_pendapatan", array('id_detail_p' => "$id"));
+      if ($this->db->affected_rows() > 0) {
+        $this->session->set_flashdata('msg',
+          '<div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+              </button>
+              <strong>Sukses!</strong> Berhasil dihapus.
+          </div>'
+        );
+        redirect('admin/c_pelaksanaan/detail_pnd/'.$idp);
+      } else {
+        var_dump($this->db->affected_rows());
+      }
+      // $this->session->set_flashdata('msg',
+      //   '
+      //   <div class="alert alert-success alert-dismissible" role="alert">
+      //       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      //         <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+      //       </button>
+      //       <strong>Sukses!</strong> Berhasil dihapus.
+      //   </div>'
+      // );
+      // redirect('admin/c_pelaksanaan/detail_pnd/'.$idp);
     }
   }
 
@@ -696,7 +721,7 @@ class C_pelaksanaan extends CI_Controller {
             if($this->session->userdata('logged_in') AND $role == 'Administrator')
             {
                     if (isset($_POST['simpan'])) {
-                      $tahun = $this->input->post('tahun');
+                      $tahun = $this->input->post('tahun'); 
                       if ($this->db->get_where("tbl_apb_desa", array('tahun' => "$tahun"))->num_rows() != 0) {
                         $this->session->set_flashdata('msg',
                           '
@@ -740,10 +765,10 @@ class C_pelaksanaan extends CI_Controller {
                 $role = $session['hasil']->role;
                 if($this->session->userdata('logged_in') AND $role == 'Administrator')
                 {
+                  $data['hasil'] = $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_apb_desa.id_kegiatan');
                   $data['hasil'] = $this->db->get_where("tbl_apb_desa", array('id_apb_desa' => "$id"))->row();
                   $data['page_title'] = 'EDIT DANA CADANGAN';
-                  $this->db->order_by('nama_kegiatan', 'ASC');
-                  $data['v_kegiatan'] = $this->db->get('tbl_kegiatan');
+                  
                   $this->db->order_by('nama_bank', 'ASC');
                   $data['v_bank'] = $this->db->get('tbl_bank');
                   $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
@@ -761,13 +786,13 @@ class C_pelaksanaan extends CI_Controller {
               if($this->session->userdata('logged_in') AND $role == 'Administrator')
               {
                 if (isset($_POST['simpan'])) {
-                // $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
+                $id_apb_desa = $this->input->post('id_apb_desa', TRUE);
                 $tahun = $this->input->post('tahun');
-                $id = $this->input->post('id_apb_desa');
+                $id = $this->input->post('id');
                     $data = array(
                           'tahun'              => $this->input->post('tahun'),
                           'nama_apb'           => $this->input->post('nama_apb'),
-                          'id_kegiatan'        => $this->input->post('id_kegiatan'),
+                          // 'id_kegiatan'        => $this->input->post('id_kegiatan'),
                           'jumlah'             => $this->input->post('jumlah'),
                           'anggaran'           => preg_replace('/[Rp. ]/', '', $this->input->post('anggaran')),
                           'tgl_apb_desa'       => $this->input->post('tgl_apb_desa'),
@@ -778,7 +803,7 @@ class C_pelaksanaan extends CI_Controller {
                           'satuan'             => $this->input->post('satuan'),
                           'harga'              => preg_replace('/[Rp. ]/', '', $this->input->post('harga'))
                     );
-                    $this->db->update("tbl_apb_desa", $data);
+                    $this->db->update("tbl_apb_desa", $data, array('id_apb_desa' => "$id"));
                     $this->session->set_flashdata('msg',
                       '
                       <div class="alert alert-success alert-dismissible" role="alert">

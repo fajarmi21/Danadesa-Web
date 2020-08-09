@@ -41,7 +41,7 @@ class C_kegiatan extends CI_Controller {
 			$data['page_title'] = 'Tambah Ketua Kegiatan';
 			$data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
 			$data['content'] = $this->load->view('kegiatan/v_tambah', $data, TRUE);
-			$this->load->view('utama', $data);
+			$this->load->view('utama', $data); 
 		}else
 			redirect('c_login', 'refresh');
 
@@ -52,11 +52,26 @@ class C_kegiatan extends CI_Controller {
       $role = $session['hasil']->role;
       if($this->session->userdata('logged_in') AND $role == 'Administrator')
       {
+        if (isset($_POST['simpan'])) {
+          $tahun = $this->input->post('user_kegiatan');
+          if ($this->db->get_where("tbl_kegiatan", array('user_kegiatan' => "$tahun"))->num_rows() != 0) {
+            $this->session->set_flashdata('msg',
+              '
+              <div class="alert alert-warning alert-dismissible" role="alert">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;&nbsp; &nbsp;</span>
+                 </button>
+                 <strong>Gagal!</strong> Maaf, dan Email <b>"'.$tahun.'"</b> sudah ada!.
+              </div>'
+            );
+            redirect('admin/c_kegiatan');
+          }
+
           $nama_kegiatan = $this->input->post('nama_kegiatan', TRUE);
           $nik_kegiatan =$this->input->post('nik_kegiatan', TRUE);
           $alamat_kegiatan = $this->input->post('alamat_kegiatan', TRUE);
           $telp_kegiatan = $this->input->post('telp_kegiatan',TRUE);
-          $user_kegiatan = $this->input->post('user_kegiatan',TRUE);
+          $user_kegiatan = $tahun;
           $pass_kegiatan = $this->input->post('pass_kegiatan',TRUE);
 
       		$this->form_validation->set_rules('nama_kegiatan', 'nama_kegiatan', 'nik_kegiatan', 'alamat_kegiatan', 'telp_kegiatan', 'user_kegiatan', 'pass_kegiatan', 'required');
@@ -107,6 +122,7 @@ class C_kegiatan extends CI_Controller {
                    <strong>Sukses!</strong> Berhasil ditambah.
                 </div>'
               );
+            }
       				redirect('admin/c_kegiatan');
 
           }
@@ -159,7 +175,7 @@ class C_kegiatan extends CI_Controller {
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
-            $file = UPLOAD_DIR . $this->input->post('kode_kegiatan') . '.jpg';
+            $file = UPLOAD_DIR . $this->input->post('nik_kegiatan') . '.jpg';
             $success = file_put_contents($file, $data);
             $path = $file;
 
