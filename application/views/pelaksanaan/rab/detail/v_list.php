@@ -1,6 +1,24 @@
 <script type="text/javascript" src="<?=$this->config->item('base_url');?>assetku/js/jquery.maskMoney.min.js"></script>
 <link href="<?=$this->config->item('base_url');?>assetku/css/select2.min.css" rel="stylesheet" />
 <script src="<?=$this->config->item('base_url');?>assetku/js/select2.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+<style>
+     .dataTable > thead > tr > th[class*="sort"]::after{display: none}
+     table.dataTable thead .sorting,
+     table.dataTable thead .sorting_asc,
+     table.dataTable thead .sorting_desc {
+        background : none;
+     }
+
+     #rowspan2{
+       text-align:center;padding:0px;padding-bottom:30px;
+     }
+</style>
 
 <h2><?= $page_title ?></h2>
 
@@ -34,7 +52,7 @@
             <div class="table-responsive">
               <table id="table_id" class="table table-bordered table-striped display" cellspacing="0" width="100%">
                   <thead>
-                      <tr>
+                      <tr> 
                          <th style="text-align: center;">No.</th>
                           <th style="text-align: center;">Tanggal </th>
                           <th style="text-align: center;">Deskripsi Pengeluaran</th>
@@ -225,6 +243,18 @@ $(document).ready(function() {
   $(".cari_tahun").select2({
       placeholder: "Pilih Tahun"
   });
+  $('#table_id').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            'colvis'
+        ]
+    });
 
   
   $('#anggaran').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
