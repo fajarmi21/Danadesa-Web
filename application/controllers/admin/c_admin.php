@@ -23,6 +23,7 @@ class C_admin extends CI_Controller {
 		// $data['jumlah_penduduk_laki'] = $this->m_kalkulasi->getTotalPendudukByKelamin('1');
 		// $data['jumlah_penduduk_perempuan'] = $this->m_kalkulasi->getTotalPendudukByKelamin('2');
 		$data['angdesa'] = $this->m_grafik->getAdesa();
+		$data['penyerapan'] = $this->m_grafik->getPenyerapan();
 		$data['desa'] = $this->m_grafik->getDesa();
 		$data['krajan'] = $this->m_grafik->getKrajan();
 		$data['dukut'] = $this->m_grafik->getDukut();
@@ -34,7 +35,7 @@ class C_admin extends CI_Controller {
 		$data['danadesa'] = $data['v_pendapatan'] - $data['v_pengeluaran'];
 
 
-
+ 
 		$data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);	
 
 		// $data['jumlah_kk_perempuan'] = $this->m_kk->getKkPerempuan();

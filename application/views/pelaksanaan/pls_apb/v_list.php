@@ -77,7 +77,6 @@ echo $this->session->flashdata('msg');
       <tr>
         <th colspan="8" style="text-align:right">Total :</th>
         <th><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-8px;"><?php echo number_format($total_harga,0,",","."); ?>,-</span></th>
-        <th></th>
       </tr>
     </tfoot>
 </table>

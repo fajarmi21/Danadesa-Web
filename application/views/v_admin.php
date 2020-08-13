@@ -26,7 +26,8 @@
 
     <div class="col-md-6" style="margin-bottom: 30px;"><canvas id="desa" style="background-color:white;"></canvas></div>
     <div class="col-md-6" style="margin-bottom: 50px;"><canvas id="angdesa" style="background-color:white;"></canvas></div>
-    <div style="width: 60%; margin: 0px auto;"><canvas id="dusun" style="background-color:white;"></canvas></div>
+    <div class="col-md-6" style="margin-bottom: 50px;"><canvas id="dusun" style="background-color:white;"></canvas></div>
+    <div class="col-md-6" style="margin-bottom: 50px;"><canvas id="penyerapan" style="background-color:white;"></canvas></div>
 </div>
 <script>
 function nav_active(){
@@ -230,7 +231,69 @@ var options = {
 
 // Chart declaration:
 var myBarChart = new Chart(ctx, {
-  type: 'bar',
+  type: 'line',
+  data: data,
+  options: options
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+var canvas = document.getElementById("penyerapan");
+var ctx = canvas.getContext('2d');
+
+// Global Options:
+Chart.defaults.global.defaultFontColor = 'black';
+Chart.defaults.global.defaultFontSize = 12;
+
+var data = {
+  labels: [<?php foreach ($penyerapan as $key) { echo $key['tahun'].','; } ?>],
+  datasets: [{
+      label: "Desa Dukuh",
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: "grey",
+      borderColor: "grey", // The main line color
+      borderCapStyle: 'circle',
+      borderDash: [], // try [5, 15] for instance
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'grey',
+      pointBorderColor: "white",
+      pointBackgroundColor: "grey",
+      pointBorderWidth: 1,
+      pointHoverRadius: 8,
+      pointHoverBackgroundColor: "grey",
+      pointHoverBorderColor: "black",
+      pointHoverBorderWidth: 2,
+      pointRadius: 4,
+      pointHitRadius: 10,
+      // notice the gap in the data and the spanGaps: true
+      data: [<?php foreach ($penyerapan as $key) { echo $key['jml'].','; } ?>],
+      spanGaps: true,
+    }
+
+  ]
+};
+
+// Notice the scaleLabel at the same level as Ticks
+var options = {
+  scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                },
+                scaleLabel: {
+                     display: true,
+                     labelString: 'Persetase Dana Terserap',
+                     fontSize: 20 
+                  }
+            }]            
+        }  
+};
+
+// Chart declaration:
+var myBarChart = new Chart(ctx, {
+  type: 'line',
   data: data,
   options: options
 });
@@ -292,7 +355,7 @@ var options = {
 
 // Chart declaration:
 var myBarChart = new Chart(ctx, {
-  type: 'bar',
+  type: 'line',
   data: data,
   options: options
 });

@@ -120,6 +120,39 @@ class Belanja extends CI_Controller {
         echo json_encode($sql);
     }
     
+    public function upload()
+    {
+        $imagename = $_FILES['imagename']['tmp_name'];
+        $id_rka_belanja = $_POST['id_rka_belanja'];
+
+        if(!$imagename){
+          echo json_encode(array('message'=>'required file is empty.'));
+        }else{
+            $dir = 'uploads/';
+            
+            $newname = $dir . date('Ymdhms') . $this->input->post('id_rka_belanja') . '.jpg';
+            
+            move_uploaded_file($imagename, $newname);
+
+            $data = array(
+                'image'        => $newname
+            );
+          
+            $this->db->trans_begin();
+                $this->db->update("tbl_rka_belanja", $data, array('id_rka_belanja' => $id_rka_belanja));
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
+                $this->db->trans_commit();
+                $r['status'] = '1';
+                $r['message'] = 'Update Sukses';
+            } else {
+                $this->db->trans_rollback();
+                $r['status'] = '0';
+                $r['message'] = 'Update Gagal';
+            }
+            echo json_encode($r);
+        }
+    }
 
     public function uploadDetail()
     {

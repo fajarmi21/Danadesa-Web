@@ -98,7 +98,7 @@
 							 <span>&nbsp;</span>
  				      </div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 					<div class="image-editor ">
 						<label class="col-md-4 control-label" for="bukti">Foto Kegiatan Pengeluaran</label>
 						<div class="col-md-8">
@@ -112,7 +112,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</div>
-				</div>
+				</div> -->
 					
 
 				<hr>

@@ -32,6 +32,11 @@ class M_Grafik extends CI_Model {
         $query = $this->db->query("SELECT SUM(jumlah) as jml, tahun FROM tbl_rka_pendapatan GROUP BY tahun");
         return $query->result_array();  
     } 
+    public function getPenyerapan()
+    {
+        $query = $this->db->query("SELECT SUM(anggaran) as jml, tahun FROM tbl_rka_belanja GROUP BY tahun");
+        return $query->result_array();  
+    } 
 
     public function getDesa()
     {

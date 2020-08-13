@@ -249,6 +249,7 @@ $(document).ready(function() {
             {
                 extend: 'print',
                 exportOptions: {
+                    stripHtml: false,
                     columns: ':visible'
                 }
             },

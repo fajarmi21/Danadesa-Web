@@ -56,8 +56,8 @@ echo $this->session->flashdata('msg');
           <td><?php echo $baris->nama_kegiatan; ?></td>
           <td><?php echo $baris->tahun; ?></td>
           <td><?php echo $baris->nama_dusun; ?></td>
-          <td><?php echo $baris->tgl_rka_belanja; ?></td>
-          <td><?php echo $baris->selesai; ?></td>
+          <td><?php echo $this->page_model->tgl_id("$baris->tgl_rka_pendapatan"); ?></td>
+          <td><?php echo $this->page_model->tgl_id("$baris->selesai"); ?></td>
           <td><span style="margin-left:-8px;">Rp.</span><span style="float:right;margin-right:-7px;"><?php echo number_format($baris->anggaran,0,",","."); ?>,-</span></td>
           <td>Rp.<span style="float:right;">
           <?php

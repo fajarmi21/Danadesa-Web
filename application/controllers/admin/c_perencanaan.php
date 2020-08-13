@@ -44,11 +44,12 @@ class C_perencanaan extends CI_Controller {
 
     function lists_rka_belanja() {
         $data['page_title'] = 'DATA RKA BELANJA | Rencana Anggaran Biaya (RAB)';
+        $this->db->select("*,STR_TO_DATE(tgl_rka_belanja,'%d-%m-%Y') AS tgl_rka_belanja", false);
         $this->db->join('tbl_bidang', 'tbl_bidang.id_bidang=tbl_rka_belanja.id_bidang');
         $this->db->join('tbl_program', 'tbl_program.id_program=tbl_rka_belanja.id_program');
         $this->db->join('tbl_kegiatan', 'tbl_kegiatan.id_kegiatan=tbl_rka_belanja.id_kegiatan');
         $this->db->join('ref_dusun', 'ref_dusun.id_dusun=tbl_rka_belanja.id_dusun');
-        $this->db->order_by('id_rka_belanja', 'DESC');
+        $this->db->order_by('tgl_rka_belanja','DESC');
         $data['v_data'] = $this->db->get('tbl_rka_belanja');
 		    $data['menu'] = $this->load->view('menu/v_admin', $data, TRUE);
         $data['content'] = $this->load->view('perencanaan/rka_belanja/v_list', $data, TRUE);

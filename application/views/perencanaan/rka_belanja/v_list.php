@@ -50,8 +50,8 @@ echo $this->session->flashdata('msg');
           <td><?php echo $baris->nama_kegiatan; ?></td>
           <td><?php echo $baris->tahun; ?></td>
           <td><?php echo $baris->nama_dusun; ?></td>
-          <td><?php echo $baris->tgl_rka_belanja; ?></td>
-          <td><?php echo $baris->selesai; ?></td>
+          <td><?php echo $this->page_model->tgl_id(Date("d-m-Y",strtotime($baris->tgl_rka_belanja))); ?></td>
+          <td><?php echo $this->page_model->tgl_id("$baris->selesai"); ?></td>
           <td>Rp.<span style="float:right;"><?php echo number_format($baris->anggaran, 0,",","."); ?>,-</span></td>
 
           <td align="center">
@@ -87,6 +87,7 @@ function nav_active(){
 // very simple to use!
 $(document).ready(function() {
   nav_active();
-  $('#table_id').DataTable();
+  $('#table_id').DataTable({
+  });
 });
 </script>
