@@ -37,7 +37,12 @@ echo $this->session->flashdata('msg');
           <td style="text-align: center;"><img src="<?php echo base_url().$baris->foto_ketua; ?>" width="50" height="50"/></td>
           <td align="center">
             <a href="c_kegiatan/edit/<?php echo $baris->id_kegiatan; ?>" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
-            <a href="c_kegiatan/hapus/<?php echo $baris->id_kegiatan; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i class="fa fa-trash"></i></a>
+            <?php
+              $num = $this->db->get_where('tbl_rka_belanja', array('id_kegiatan' => $baris->id_kegiatan))->num_rows();
+              if ($num == 0) {
+                echo "<a href='c_kegiatan/hapus/<?php echo $baris->id_kegiatan; ?>' class='btn btn-danger btn-sm' onclick='return confirm('Anda Yakin?');'><i class='fa fa-trash'></i></a>";
+              }
+            ?>
           </td>
         </tr>
       <?php
